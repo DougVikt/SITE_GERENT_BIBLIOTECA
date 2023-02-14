@@ -1,3 +1,24 @@
-.nav_stl{
-    background-image: linear-gradient(rgb(25, 171, 197),rgb(2, 59, 82));
+.nav-link{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+.nav-link:hover{
+    width: 100%;
+    border-radius: 50px;
+    background-color: aliceblue;
+}
+.container{
+    padding: 0;
+    margin: 0;
+    height: 100px;
+
+}
+.carousel-item img {
+    height: 700px;
+    object-fit: cover;
+}
+.divi{
+    text-align: center;
+    padding:20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
