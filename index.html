@@ -27,6 +27,7 @@
         </div>
         <div class="offcanvas-body">
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
+            <div id="usuarioLogado"></div>
             <a class="btn btn-secondary btn-outline-dark rounded-4 " href="login.html" role="button" id="login">Login</a>
             <div class="vr"></div>
             <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.html" role="button" id="cadastro">Cadastrar</a>
@@ -36,11 +37,18 @@
               <a class="nav-link active fs-5 " href="#">E-Book</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active fs-5" href="login.html" id="praso">Prasos</a>
+              <a class="nav-link active fs-5" href="login.html" id="prazo">Prazos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link active fs-5" href="acervo.html" id="acervo">Acervo</a>
             </li>
+            <li class="nav-item dropdown">
+              <!------- variavel que vem do php -->
+            <?php if ($ehFuncionario): ?> 
+              <li class="nav-item dropdown">
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Cadastrar Livros</a>
+              </li>
+            <?php endif; ?> </li>
           </ul>
           <br>
          </div>
@@ -51,7 +59,8 @@
   <br>
   <!---------------------------------- logo central --------------------------------------->
 
-  <div class="shadow-lg p-3 mb-4 bg-body rounded-circle border border-5  mx-auto w-50">
+  <div class="shadow-lg p-3 mb-4 bg-body rounded-circle border border-5  mx-auto w-50" style="margin-top: 20px;">
+
     <img class="img-fluid rounded-circle" src="img/logo.png" alt="logo biblioteca Amanajé">
     <h1 class="text-center fs-2 fw-bold">+ 700 livros</h1>
   </div>
@@ -61,7 +70,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="card-deck">  
-          <div class="container-fluid mt-3 shadow rounded-5 divi-card">
+          <div class="container-fluid mt-3 shadow divi-card">
             <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
@@ -100,7 +109,7 @@
       </div>
       <div class="carousel-item">
         <div class="card-deck">
-          <div class="container-fluid mt-3 shadow rounded-5 divi-card">
+          <div class="container-fluid mt-3 shadow  divi-card">
             <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
@@ -139,7 +148,7 @@
       </div>
       <div class="carousel-item">
         <div class="card-deck">
-          <div class="container-fluid mt-3 shadow rounded-5 divi-card">
+          <div class="container-fluid mt-3 shadow divi-card">
             <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
