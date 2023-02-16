@@ -13,11 +13,12 @@
     height: 100px;
 
 }
-.carousel-item img {
-    height: 700px;
-    object-fit: cover;
+
+.divi-card{
+    background-image: linear-gradient(#31c0d3,#0f9eb170);
+    
 }
-.divi{
+.card-2{
     text-align: center;
     padding:20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
