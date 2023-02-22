@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 </head>
 <body>
  
@@ -40,10 +42,10 @@
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
             <li class="nav-item dropdown">
-              <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Cadastrar Livros</a>
+              <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
             </li>
             <li class="nav-item dropdown">
-              <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Emprestimo</a>
+              <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
             </li>
           </ul>
           <br>
@@ -63,6 +65,10 @@
       <div class="mb-3">
         <label for="nome-livro">Tìtulo do livro:</label>
         <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor">
+      </div>
+      <div class="mb-3">
+        <label for="codigo-livro">Código:</label>
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo">
       </div>
       <div class="mb-3">
         <label for="data-emprestimo">Data da Retirada:</label>

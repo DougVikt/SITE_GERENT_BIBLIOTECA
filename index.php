@@ -7,10 +7,20 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 </head>
 <body>
  
 <main>
+<?php
+session_start(); 
+$funcionario = false;
+// verifica se e usuario ou funcionario
+if (isset($_SESSION['funcionario']) && $_SESSION['funcionario'] == 1) {
+   $funcionario = true;
+}
+
+?>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
@@ -28,20 +38,20 @@
         <div class="offcanvas-body">
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
             <div id="usuarioLogado"></div>
-            <a class="btn btn-secondary btn-outline-dark rounded-4 " href="login.html" role="button" id="login">Login</a>
+            <a class="btn btn-secondary btn-outline-dark rounded-4 " href="login.php" role="button" id="login">Login</a>
             <div class="vr"></div>
-            <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.html" role="button" id="cadastro">Cadastrar</a>
+            <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
           </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
-              <a class="nav-link active fs-5" href="login.html" id="historico">Historico</a>
+              <a class="nav-link active fs-5" href="login.php" id="historico">Historico</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
               <!------- variavel que vem do php -->
             
-            <?php if ($ehFuncionario): ?> 
+            <?php if ($funcionario): ?> 
               <li class="nav-item dropdown">
                 <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Cadastrar Livros</a>
               </li>
@@ -225,7 +235,7 @@
     
 
   </footer>
- 
+
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

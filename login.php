@@ -2,46 +2,80 @@
 <html lang="pt-br">
 <head>
   <title>Login</title>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="bg-info  bg-opacity-25">
-  <?php
-  // Verifica se o formulário foi submetido
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+<?php
+include 'conexao.php';
+// Iniciar a sessão
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+  echo "tudo certo 1";
+// Verifica se o formulário foi submetido
+ 
+  
     // Obtenha os valores enviados pelo formulário
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
-    // Verifica se o usuário e a senha estão corretos (aqui, isso é simulado com um usuário e senha hardcoded)
-    if ($username === 'user' && $password === 'pass') {
-      // Inicie a sessão e armazene o ID do usuário nela
-      session_start();
-      $_SESSION['user_id'] = 1;
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    $senha_crip = password_hash($senha , PASSWORD_DEFAULT);
+    try{
+    // Preparar e executar a instrução SQL para buscar um usuário com o nome de usuário ou endereço de e-mail fornecido
+      $stmt = $pdo->prepare('SELECT * FROM 
+                          (SELECT * FROM usuarios WHERE email = ? UNION 
+                            SELECT * FROM funcionarios WHERE email = ?) AS usuarios_funcionarios
+                            WHERE senha = ?');;
+      echo $stmt->queryString;
+
+      $stmt->execute([$email, $email , $senha_crip]);
+      $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+   
+    }catch(PDOException $e) {
+      echo "Erro ao executar a consulta: " . $e->getMessage();
+    }
+
+    // Verificar se o usuário foi encontrado e se a senha fornecida está correta
+    if ($usuario && password_verify($senha_crip, $usuario['senha'])) {
+      echo "tudo certo 3";
+      // Armazenar o ID do usuário na sessão
+      $_SESSION['user_id'] = $usuario['id'];
       
-      // Redirecione para a página inicial
+      // Verificar se o usuário é funcionário ou não
+      if (is_null($usuario['is_funcionario'])) {
+     
+        $_SESSION['user_type'] = 'usuario';
+      } else {
+        $_SESSION['user_type'] = 'funcionario';
+      }
+      $logado = isset($_SESSION['user_type']);
+      echo json_encode($logado);
+      // Redirecionar para a página inicial
       header('Location: index.php');
       exit;
     } else {
       // Caso contrário, exibe uma mensagem de erro
-      echo "Usuário ou senha inválidos";
+      $message = "<script> alert('Usuário ou senha inválidos1);</script>";
     }
   }
+
 ?>
 
     <div class="bg-light rounded-4 container w-25 p-5 fs-4 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
         <div class="text-center">
         <h2 class="text-center">Faça Login</h2><br>
-        <form action="/action_page.php">
+        <form action="" method="post">
           <div class="mb-3 mt-3 fw-bold">
             <label for="email">Email:</label>
             <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email" name="email">
           </div>
           <div class="mb-3 fw-bold">
-            <label for="pwd">Senha:</label>
-            <input type="password" class="form-control form-control-sm rounded-5" id="pwd" placeholder="Coloque sua senha " name="pswd">
+            <label for="senha">Senha:</label>
+            <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha">
           </div>
           <div class="form-check mb-3 fs-6 ">
             <label class="form-check-label">

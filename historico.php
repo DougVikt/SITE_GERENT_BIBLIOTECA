@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 </head>
 <body>
  
@@ -37,14 +39,14 @@
               <a class="nav-link active fs-5" href="historico.php" >Historico</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link active fs-5" href="acervo.html" id="acervo">Acervo</a>
+              <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
             
             <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Cadastrar Livros</a>
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
             </li>
             <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.html">Emprestimo</a>
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
             </li>
         
           </ul>

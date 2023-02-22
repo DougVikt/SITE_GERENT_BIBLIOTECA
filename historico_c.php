@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 </head>
 <body>
  

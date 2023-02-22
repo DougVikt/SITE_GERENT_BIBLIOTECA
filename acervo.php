@@ -7,9 +7,44 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 </head>
 <body>
- 
+<?php
+include 'conexao.php';
+
+session_start(); 
+$funcionario = false;
+// verifica se e usuario ou funcionario
+if (isset($_SESSION['funcionario']) && $_SESSION['funcionario'] == 1) {
+   $funcionario = true;
+}
+
+// Consulta no banco de dados
+$sql = "SELECT * FROM livros WHERE 1";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (isset($_GET['q']) && !empty($_GET['q'])) {
+  $q = $_GET['q'];
+  $sql = "SELECT * FROM livros WHERE titulo LIKE '%$q%' OR autor LIKE '%$q%' OR editora LIKE '%$q%' OR ano LIKE '%$q%'";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  // código para recuperar todos os livros da tabela
+  $sql = "SELECT * FROM livros where 1";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+?>
+<main>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
@@ -39,7 +74,7 @@
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
               <!------- variavel que vem do php -->
-            <?php if ($ehFuncionario): ?> 
+            <?php if ($funcionario): ?> 
               <li class="nav-item dropdown">
                 <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.html">Cadastrar Livros</a>
               </li>
@@ -64,16 +99,36 @@
         </a>
 
         <div class="col-1 col-lg-auto mb-3 mb-lg-0 ms-auto me-lg-3">
-          <form class="d-flex" role="search">
-            <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
+          <form class="d-flex" role="search"  method="GET">
+            <input type="search" name="q" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
           </form>
         </div>
-        
-
+      </div>
     </div>
   </header>
- 
- </main>   
+  <div class="container ">
+	<div class="row d-flex flex-wrap">
+		<?php foreach($livros as $livro): ?>
+			<div class="col-md-2 col-sm-3 mb-3">
+				<div class="card mt-3 shadow rounded-4 border border-3">
+					<img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
+					<div class="card-body">
+						<h5 class="card-title"><?php echo $livro['titulo']; ?></h5>
+            <ul>
+              <li class="card-text">Autor: <?php echo $livro['autor']; ?></li>
+              <li class="card-text">Genero: <?php echo $livro['genero']; ?></li>
+              <li class="card-text">Ano: <?php echo $livro['ano'];?></li>
+              <li class="card-text">Editora: <?php echo $livro['editora']; ?></li>
+              <li class="card-text">Codigo: <?php echo $livro['codigo'];?></li>
+            </ul>          
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  <?php endforeach; ?>
+
+</main>   
  <!----------------------------------- footer ------------------------------------->
  
   <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-sm-4 border-top">
