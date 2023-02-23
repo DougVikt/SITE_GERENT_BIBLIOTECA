@@ -163,7 +163,9 @@ if (isset($_POST['submit'])){
           <br>
           <button type="submit" name="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Cadastrar</button>
         </form>
-      
+          <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
+            <a href="index.php" class="btn btn-primary">< Voltar</a>
+          </div>
         </div>
     </div>
   
