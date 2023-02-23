@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="icon" href="img/logo.png" >
 
 </head>
 <body>
@@ -61,8 +61,9 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
         </div>
         <div class="offcanvas-body">
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
+          <div id="usuarioLogado"></div>
             <div id="usuarioLogado"></div>
-            <a class="btn btn-secondary btn-outline-dark rounded-4 " href="login.php" role="button" id="login">Login</a>
+            <a class="btn btn-secondary btn-outline-light rounded-4 " href="login.php" role="button" id="login">Login</a>
             <div class="vr"></div>
             <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
           </div><br>
@@ -79,7 +80,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
                 <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
               </li>
               <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Emprestimo</a>
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
               </li>
             <?php endif; ?> 
           </ul>
@@ -107,43 +108,45 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     </div>
   </header>
   <div class="container ">
-	<div class="row d-flex flex-wrap">
-		<?php foreach($livros as $livro): ?>
-			<div class="col-md-2 col-sm-3 mb-3">
-				<div class="card mt-3 shadow rounded-4 border border-3">
-					<img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
-					<div class="card-body">
-						<h5 class="card-title"><?php echo $livro['titulo']; ?></h5>
-            <ul>
-              <li class="card-text">Autor: <?php echo $livro['autor']; ?></li>
-              <li class="card-text">Genero: <?php echo $livro['genero']; ?></li>
-              <li class="card-text">Ano: <?php echo $livro['ano'];?></li>
-              <li class="card-text">Editora: <?php echo $livro['editora']; ?></li>
-              <li class="card-text">Codigo: <?php echo $livro['codigo'];?></li>
-            </ul>          
-          </div>
+  <div class="row d-flex flex-wrap">
+  <?php foreach($livros as $livro): ?>
+    <div class="d-inline-block col-md-2 col-sm-3 mb-3">
+      <div class="card mt-3 shadow rounded-4 border border-3">
+        <img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
+        <div class="card-body">
+          <h5 class="card-title"><?php echo $livro['titulo']; ?></h5>
+          <ul>
+            <li class="card-text">Autor: <?php echo $livro['autor']; ?></li>
+            <li class="card-text">Genero: <?php echo $livro['genero']; ?></li>
+            <li class="card-text">Ano: <?php echo $livro['ano'];?></li>
+            <li class="card-text">Editora: <?php echo $livro['editora']; ?></li>
+            <li class="card-text">Codigo: <?php echo $livro['codigo'];?></li>
+          </ul>          
         </div>
       </div>
-  </div>
-  </div>
+    </div>
+    <?php if ($livro === end($livros)): ?>
+      <div class="w-100"></div> <!-- Adiciona uma linha horizontal após a última div do loop -->
+    <?php endif; ?>
   <?php endforeach; ?>
+</div>
+</div>
+
 
 </main>   
  <!----------------------------------- footer ------------------------------------->
  
-  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-sm-4 border-top">
+ <div class="container sticky-sm-bottom ">
+ <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       
+      
       </a>
-      <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2022</font></font></p>
+      
     </div>
 
-    <div class="col mb-3">
-
-    </div>
-
-    <div class="col mb-3">
+    <div class=" mb-5 mx-4">
+      
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
@@ -155,6 +158,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     
 
   </footer>
+ </div>
  
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>

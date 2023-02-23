@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <title>Login</title>
-  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <link rel="icon" href="img/logo.png" >>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $senha_crip = password_hash($senha , PASSWORD_DEFAULT);
     
     // Preparar e executar a instrução SQL para buscar um usuário com o nome de usuário ou endereço de e-mail fornecido
-    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo , id , email , senha FROM usuarios WHERE email = ? 
+    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo ,nome, id , email , senha FROM usuarios WHERE email = ? 
                           UNION
-                          SELECT *, "funcionario" AS tipo , id ,email , senha FROM funcionarios WHERE email = ? ');
+                          SELECT *, "funcionario" AS tipo ,nome, id ,email , senha FROM funcionarios WHERE email = ? ');
     
     $stmt->execute([$email, $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if ($usuario && password_verify($senha, $usuario['senha']))  {
      
       // Armazenar o ID do usuário na sessão
-      $_SESSION['nome'] = $usuario['id'];
+      $_SESSION['nome'] = $usuario['nome'];
       
       // Verificar se o usuário é funcionário ou não
       if (is_null($usuario['is_funcionario'])) {

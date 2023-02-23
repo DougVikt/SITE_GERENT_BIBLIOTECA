@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="icon" href="img/logo.png" >
 
 </head>
 <body>
 <?php
 include 'conexao.php'; 
 
+session_start();
 // verifica o metodo
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nome = $_POST['nome'];
@@ -90,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="offcanvas-body">
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-            <p><?php echo $_SESSION['nome']; ?></p>
+          <div id="usuarioLogado"></div>
         </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
@@ -142,19 +143,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
  <!----------------------------------- footer ------------------------------------->
  <div class="container position-absolute top-100 start-50 translate-middle mt-lg-5">
-  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-sm-4 border-top">
+ <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       
+      
       </a>
-      <p class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2022</font></font></p>
+      
     </div>
 
-    <div class="col mb-3">
-
-    </div>
-
-    <div class="col mb-3">
+    <div class=" mb-5 mx-4">
+      
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
