@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE php>
+<php lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +11,34 @@
 
 </head>
 <body>
- 
+ <?php
+include('conexao.php');
+session_start();
+
+
+// Obtém o ID do usuário da sessão
+$usuario_id = $_SESSION['nome'];
+
+
+// Faz a consulta SQL para obter o histórico do usuário
+// consulta no banco de dados caso nada consultado
+$sql = "SELECT emprestimo.*, usuarios.nome, livros.codigo 
+FROM emprestimo 
+INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
+INNER JOIN livros ON emprestimo.codigo = livros.id
+WHERE usuarios.id = :user_id";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['user_id' => $usuario_id]);
+$emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
 <main>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold fs-4 " href="index.html">
+      <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
@@ -28,12 +50,16 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+          <!------------------------- para aparecer o nome do logado --------------------------------->
+        <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
+            <p><?php echo $_SESSION['nome']; ?></p>
+          </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
-              <a class="nav-link active fs-5" href="historico_c.html" id="historico">Historico</a>
+              <a class="nav-link active fs-5" href="historico_c.php" id="historico">Historico</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link active fs-5" href="acervo.html" id="acervo">Acervo</a>
+              <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
           </ul>
           <br>
@@ -61,46 +87,28 @@
 </div>
 </header>
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
-<?php
-session_start();
-include('conexao.php');
 
-// Obtém o ID do usuário da sessão
-$usuario_id = $_SESSION['usuario_id'];
-
-// Faz a consulta SQL para obter o histórico do usuário
-$sql = "SELECT * FROM historico WHERE usuario_id = $usuario_id";
-$resultado = mysqli_query($conexao, $sql);
-
-// Se houver registros, exibe a tabela
-if (mysqli_num_rows($resultado) > 0) {
-?>
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Livro</th>
+        <th>Data de Empréstimo</th>
+        <th>Data de Devolução</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($historicos as $historico) { ?>
         <tr>
-          <th>Livro</th>
-          <th>Data de Empréstimo</th>
-          <th>Data de Devolução</th>
+          <td><?php echo $historico['livro_titulo']; ?></td>
+          <td><?php echo date('d/m/Y', strtotime($historico['data_emprestimo'])); ?></td>
+          <td><?php echo date('d/m/Y', strtotime($historico['data_devolucao'])); ?></td>
         </tr>
-      </thead>
-      <tbody>
-        <?php while ($historico = mysqli_fetch_array($resultado)) { ?>
-          <tr>
-            <td><?php echo $historico['livro_titulo']; ?></td>
-            <td><?php echo $historico['data_emprestimo']; ?></td>
-            <td><?php echo $historico['data_devolucao']; ?></td>
-          </tr>
-        <?php } ?>
-      </tbody>
-    </table>
-  </div>
-<?php
-} else {
-  echo "Nenhum registro encontrado.";
-}
-mysqli_close($conexao);
-?>
+      <?php } ?>
+    </tbody>
+  </table>
+</div>
+
 
   
  <!----------------------------------- footer ------------------------------------->
@@ -141,5 +149,5 @@ mysqli_close($conexao);
 </body>
   
   
-</html>
+</php>
   

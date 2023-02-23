@@ -14,8 +14,10 @@ include 'conexao.php';
 // Iniciar a sessão
 session_start();
 
+ob_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-  echo "tudo certo 1";
+  
 // Verifica se o formulário foi submetido
  
   
@@ -24,48 +26,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $senha = $_POST['senha'];
 
     $senha_crip = password_hash($senha , PASSWORD_DEFAULT);
-    try{
+    
     // Preparar e executar a instrução SQL para buscar um usuário com o nome de usuário ou endereço de e-mail fornecido
-      $stmt = $pdo->prepare('SELECT * FROM 
-                          (SELECT * FROM usuarios WHERE email = ? UNION 
-                            SELECT * FROM funcionarios WHERE email = ?) AS usuarios_funcionarios
-                            WHERE senha = ?');;
-      echo $stmt->queryString;
+    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo , id , email , senha FROM usuarios WHERE email = ? 
+                          UNION
+                          SELECT *, "funcionario" AS tipo , id ,email , senha FROM funcionarios WHERE email = ? ');
+    
+    $stmt->execute([$email, $email]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      $stmt->execute([$email, $email , $senha_crip]);
-      $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-   
-    }catch(PDOException $e) {
-      echo "Erro ao executar a consulta: " . $e->getMessage();
-    }
-
+  
     // Verificar se o usuário foi encontrado e se a senha fornecida está correta
-    if ($usuario && password_verify($senha_crip, $usuario['senha'])) {
-      echo "tudo certo 3";
+    if ($usuario && password_verify($senha, $usuario['senha']))  {
+     
       // Armazenar o ID do usuário na sessão
-      $_SESSION['user_id'] = $usuario['id'];
+      $_SESSION['nome'] = $usuario['id'];
       
       // Verificar se o usuário é funcionário ou não
       if (is_null($usuario['is_funcionario'])) {
-     
+      
         $_SESSION['user_type'] = 'usuario';
       } else {
         $_SESSION['user_type'] = 'funcionario';
       }
       $logado = isset($_SESSION['user_type']);
       echo json_encode($logado);
+      echo "<script>alert('Login efetuado com sucesso !')</script>";
       // Redirecionar para a página inicial
       header('Location: index.php');
       exit;
     } else {
       // Caso contrário, exibe uma mensagem de erro
-      $message = "<script> alert('Usuário ou senha inválidos1);</script>";
+       echo "<script> alert('Usuário ou senha inválidos');</script>";
     }
   }
-
 ?>
-
     <div class="bg-light rounded-4 container w-25 p-5 fs-4 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
+        
         <div class="text-center">
         <h2 class="text-center">Faça Login</h2><br>
         <form action="" method="post">
@@ -85,10 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
           <br>
           <button type="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Entrar</button>
         </form>
-        <a href="cadastrar.html" class="link-primary fs-6">Cadastrar</a>
+          <a href="cadastrar.php" class="link-primary fs-6">Cadastrar</a>
+          <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
+            <a href="index.php" class="btn btn-primary">< Voltar</a>
+          </div>
+        
         </div>
-    </div>
+        
+       </div>
       
+          
 
 </body>
 </html>

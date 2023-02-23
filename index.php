@@ -16,7 +16,7 @@
 session_start(); 
 $funcionario = false;
 // verifica se e usuario ou funcionario
-if (isset($_SESSION['funcionario']) && $_SESSION['funcionario'] == 1) {
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
    $funcionario = true;
 }
 

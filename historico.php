@@ -11,6 +11,44 @@
 
 </head>
 <body>
+  <?php
+  include 'conexao.php';
+
+
+// consulta no banco de dados caso nada colsultado
+$sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo 
+FROM emprestimo 
+INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
+INNER JOIN livros ON emprestimo.codigo = livros.id
+";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  // pesquisando
+if (isset($_GET['p']) && !empty($_GET['p'])) {
+  $p = $_GET['p'];
+  $sql = "SELECT e.*, u.nome, l.codigo FROM emprestimo e
+          INNER JOIN usuarios u ON e.usuario = u.id
+          INNER JOIN livros l ON e.livro = l.id
+          WHERE u.nome LIKE '%$p%' OR l.titulo LIKE '%$p%' OR e.codigo LIKE '%$p%'";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} elseif(empty($_GET['p'])) {
+   // consulta no banco de dados caso nada colsultado
+  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo 
+  FROM emprestimo 
+  INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
+  INNER JOIN livros ON emprestimo.codigo = livros.id
+  ";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+  
+  ?>
  
 <main>
   <!-------------------------------------- inicio do navbar ------------------------------>
@@ -28,11 +66,9 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+          <!-------------------------- para aparecer o nome do logado ------------------------------------>
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-            <div id="usuarioLogado"></div>
-            <a class="btn btn-secondary btn-outline-dark rounded-4 " href="login.html" role="button" id="login">Login</a>
-            <div class="vr"></div>
-            <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.html" role="button" id="cadastro">Cadastrar</a>
+            <p><?php echo $_SESSION['nome']; ?></p>
           </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
@@ -68,7 +104,7 @@
 
         <div class="col-1 col-lg-auto mb-3 mb-lg-0 ms-auto me-lg-3">
             <form class="d-flex" role="search">
-            <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
+            <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
             </form>
         </div>
         
@@ -82,17 +118,19 @@
         <tr>
           <th>Usuário</th>
           <th>Livro</th>
+          <th>Codigo</th>
           <th>Data de Retirada</th>
           <th>Data de Devolução</th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($usuarios as $i =>$usuario):?>
+        <?php foreach ($emprestimos as $emprestimo):?>
           <tr>
-            <td><?php echo $usuario; ?></td>
-            <td><?php echo $livros[$i]; ?></td>
-            <td><?php echo $datas_retiradas[$i]; ?></td>
-            <td><?php echo $datas_devolucao[$i]; ?></td>
+            <td><?php echo $emprestimo['usuario'];  ?></td>
+            <td><?php echo $emprestimo['livro']; ?></td>
+            <td><?php echo $emprestimo['codigo'];  ?></td>
+            <td><?php echo date("d/m/Y",strtotime($emprestimo['retirada']));  ?></td>
+            <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
