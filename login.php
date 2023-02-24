@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <title>Login</title>
-  <link rel="icon" href="img/logo.png" >>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body class="bg-info  bg-opacity-25">
 <?php
 include 'conexao.php';
 // Iniciar a sessão
@@ -28,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $senha_crip = password_hash($senha , PASSWORD_DEFAULT);
     
     // Preparar e executar a instrução SQL para buscar um usuário com o nome de usuário ou endereço de e-mail fornecido
-    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo ,nome, id , email , senha FROM usuarios WHERE email = ? 
+    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo , id , email , senha FROM usuarios WHERE email = ? 
                           UNION
-                          SELECT *, "funcionario" AS tipo ,nome, id ,email , senha FROM funcionarios WHERE email = ? ');
+                          SELECT *, "funcionario" AS tipo , id ,email , senha FROM funcionarios WHERE email = ? ');
     
     $stmt->execute([$email, $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,6 +50,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
   }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Login</title>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-info  bg-opacity-25">
+
     <div class="bg-light rounded-4 container w-25 p-5 fs-4 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
         
         <div class="text-center">

@@ -3,12 +3,10 @@
 <head>
   <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
   <title>Cadastro</title>
-  <link rel="icon" href="img/logo.png" >
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </head>
 <body class="bg-info  bg-opacity-25">
 <?php
@@ -135,27 +133,27 @@ if (isset($_POST['submit'])){
         <form action="" method="post">
           <div class="mb-0 mt-3 fw-bold">
             <label for="text">Nome:</label>
-            <input type="text" class="form-control form-control-sm rounded-5" id="nome" placeholder="Coloque o seu nome" name="nome">
+            <input type="text" class="form-control form-control-sm rounded-5" id="nome" placeholder="Coloque o seu nome" name="nome" required>
           </div>
           <div class="mb-0 fw-bold">
             <label for="email">Email:</label>
-            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email " name="email">
+            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email " name="email" required>
           </div>
           <div class="mb-0 fw-bold">
-            <label for="text">CPF:</label>
-            <input type="tel" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11,}">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11}" maxlength="11" required>       
           </div>
           <div class="mb-0 fw-bold">
             <label for="text">Telefone:</label>
-            <input type="tel" class="form-control form-control-sm rounded-5" id="tele" placeholder="Coloque seu Telefone" name="tele" pattern="[0-9]{11,}">
+            <input type="phone" class="form-control form-control-sm rounded-5" id="tele" placeholder="Coloque seu Telefone" name="tele" pattern="[0-9]{11}" maxlength="11" required>
           </div>
           <div class="mb-0 fw-bold">
             <label for="pwd">Senha:</label>
-            <input type="password" minlength="8" title="A senha deve ter no mínimo 8 caracteres" class="form-control form-control-sm rounded-5" id="pwd" placeholder="Crie sua senha " name="pswd">
+            <input type="password" minlength="8" title="A senha deve ter no mínimo 8 caracteres" class="form-control form-control-sm rounded-5" id="pwd" placeholder="Crie sua senha " name="pswd" required>
           </div>
           <div class="mb-0 fw-bold">
             <label for="pwd">Confirme sua Senha:</label>
-            <input type="password" class="form-control form-control-sm rounded-5" id="pwd2" placeholder="Repita sua senha " name="pswd2">
+            <input type="password" class="form-control form-control-sm rounded-5" id="pwd2" placeholder="Repita sua senha " name="pswd2" required>
           </div>
           <div class="mb-0 fs-6 fst-italic">
             <label for="codigo">Código:</label>

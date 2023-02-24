@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-   <link rel="icon" href="img/logo.png" >
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 </head>
 <body>
  
@@ -36,10 +36,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-          <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-            <a class="usuario-logado"></a>
-            <div id="usuarioLogado"></div>
-            <a class="btn btn-secondary btn-outline-light rounded-4 " href="login.php" role="button" id="login">Login</a>
+        <div id="usuarioLogado"></div>
+          <div class="sticky-sm-bottom row-2" style="text-align-last: center;" id="botoes-iniciais">
+            <a class="btn btn-secondary btn-outline-light rounded-4" href="login.php" role="button" id="login" >Login</a>
             <div class="vr"></div>
             <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
           </div><br>
@@ -73,6 +72,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
   <div class="shadow-lg p-3 mb-4 bg-body rounded-circle border border-5  mx-auto w-50" style="margin-top: 20px;">
 
     <img class="img-fluid rounded-circle" src="img/logo.png" alt="logo biblioteca Amanajé">
+    <h1 class="text-center fs-2 fw-bold">+ 700 livros</h1>
   </div>
 
   <!-------------------------------- cards carrossel ------------------------------------------------->
@@ -210,8 +210,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
  
  </main>   
  <!----------------------------------- footer ------------------------------------->
- 
-  <footer class="row  py-5 my-sm-4 border-top">
+ <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
@@ -232,6 +231,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
 
   </footer>
   <script> verificarLogado()</script>
+
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="icon" href="img/logo.png" >
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 
 </head>
 <body>
@@ -59,10 +59,9 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
           <h5 class="offcanvas-title" id="offcanvasNavbar2Label fs-2">MENU</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-          <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-          <div id="usuarioLogado"></div>
-            <div id="usuarioLogado"></div>
+        <div class="offcanvas-body"> 
+           <div id="usuarioLogado"></div>
+          <div class="sticky-sm-bottom row-2" style="text-align-last: center;" id="botoes-iniciais">
             <a class="btn btn-secondary btn-outline-light rounded-4 " href="login.php" role="button" id="login">Login</a>
             <div class="vr"></div>
             <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
@@ -80,7 +79,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
                 <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
               </li>
               <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Emprestimo</a>
               </li>
             <?php endif; ?> 
           </ul>
@@ -107,37 +106,37 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
       </div>
     </div>
   </header>
-  <div class="container ">
-  <div class="row d-flex flex-wrap">
-  <?php foreach($livros as $livro): ?>
-    <div class="d-inline-block col-md-2 col-sm-3 mb-3">
-      <div class="card mt-3 shadow rounded-4 border border-3">
-        <img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
-        <div class="card-body">
-          <h5 class="card-title"><?php echo $livro['titulo']; ?></h5>
-          <ul>
-            <li class="card-text">Autor: <?php echo $livro['autor']; ?></li>
-            <li class="card-text">Genero: <?php echo $livro['genero']; ?></li>
-            <li class="card-text">Ano: <?php echo $livro['ano'];?></li>
-            <li class="card-text">Editora: <?php echo $livro['editora']; ?></li>
-            <li class="card-text">Codigo: <?php echo $livro['codigo'];?></li>
-          </ul>          
+  <div class="container mb-5 w-100 row py-5 my-4 h-100">
+    <div class="row ">
+      <?php foreach($livros as $livro): ?>
+        <div class="d-inline-flex col-md-2 col-sm-3 mb-5 ">
+          <div class="card mt-3 shadow rounded-4 border border-3">
+            <img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $livro['titulo']; ?></h5>
+              <ul>
+                <li class="card-text">Autor: <?php echo $livro['autor']; ?></li>
+                <li class="card-text">Genero: <?php echo $livro['genero']; ?></li>
+                <li class="card-text">Ano: <?php echo $livro['ano'];?></li>
+                <li class="card-text">Editora: <?php echo $livro['editora']; ?></li>
+                <li class="card-text">Codigo: <?php echo $livro['codigo'];?></li>
+              </ul>          
+            </div>
+          </div>
         </div>
-      </div>
+        <?php if ($livro === end($livros)): ?>
+        <div class="w-100"></div> <!-- Adiciona uma linha horizontal após a última div do loop -->
+      <?php endif; ?>
+      <?php endforeach; ?>
     </div>
-    <?php if ($livro === end($livros)): ?>
-      <div class="w-100"></div> <!-- Adiciona uma linha horizontal após a última div do loop -->
-    <?php endif; ?>
-  <?php endforeach; ?>
-</div>
-</div>
+  </div>
+  
 
-
-</main>   
- <!----------------------------------- footer ------------------------------------->
  
- <div class="container sticky-sm-bottom ">
- <footer class="row  py-5 my-sm-4 border-top">
+ <!----------------------------------- footer ------------------------------------->
+ <div class="container">
+
+ <footer class=" w-100 row py-5 my-sm-4 border-top bottom-0">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
       
@@ -159,13 +158,13 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 
   </footer>
  </div>
- 
+ <script> verificarLogado()</script>
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+</main>  
  
 </body>
 

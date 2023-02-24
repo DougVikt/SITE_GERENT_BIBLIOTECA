@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="icon" href="img/logo.png" >
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 </head>
 <body>
 <?php
 include 'conexao.php';
+
 session_start();
     
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -144,9 +146,8 @@ session_start();
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-      
+       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
       </a>
-      
     </div>
 
     <div class=" mb-5 mx-4">

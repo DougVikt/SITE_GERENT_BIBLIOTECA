@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="icon" href="img/logo.png" >
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 
 </head>
 <body>
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="offcanvas-body">
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-          <div id="usuarioLogado"></div>
+            <p><?php echo $_SESSION['nome']; ?></p>
         </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
@@ -146,9 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-      
+       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
       </a>
-      
     </div>
 
     <div class=" mb-5 mx-4">
