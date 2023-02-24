@@ -20,5 +20,16 @@ function verificarLogado() {
     .catch(error => console.error(error));
 }
 
+// Pega o elemento de link por id
+const link = document.getElementById('historico');
+
+// Verifica se o usuário está logado como funcionário
+if (logado && user_type === 'funcionario') {
+  link.href = 'historico.php'; // Substitui o link para funcionários
+} else if  (logado && user_type === 'usuario'){
+  link.href = 'historico_c.php'; // Substitui o link para usuários normais
+} else {
+  link.href = 'login.php';
+}
 
 
