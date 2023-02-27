@@ -1,0 +1,40 @@
+banco - biblioteca {
+                  tabelas {
+                         usuarios {
+                                  id
+                                  nome
+                                  cpf    - unique
+                                  telefone
+                                  email
+                                  senha
+                                  }
+                         funcionarios{
+                                  id
+                                  nome
+                                  cpf    -  unique
+                                  telefone
+                                  email
+                                  senha
+                                  }
+                         livros {
+                                  id
+                                  titulo
+                                  autor
+                                  editora
+                                  ano
+                                  genero
+                                  capa
+                                  codigo  - unique
+                                  }
+                         emprestimo{
+                                  id
+                                  usuario  - foreign key = tab uruarios
+                                  livro
+                                  codigo   - foreign key = tab livros
+                                  retirada
+                                  devolucao
+                                  }
+                         }
+
+}
+
