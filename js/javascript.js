@@ -8,7 +8,7 @@ function verificarLogado(logado , nomeUsuario ,user_type) {
       // mostrar nome do usuário logado
       document.getElementById('usuarioLogado').innerHTML = nomeUsuario;
       if (user_type === 'funcionario') {
-      link.href = 'historico_funci.php'; // Substitui o link para funcionários
+      link.href = 'historico_funcio.php'; // Substitui o link para funcionários
       } else if  (user_type === 'usuario'){
       link.href = 'historico_user.php'; // Substitui o link para usuários normais
       }  
