@@ -61,7 +61,11 @@ session_start();
     $stmt->fetch();
     $pdo = null;
   }
-
+  if(isset($_POST['logout'])) {
+    // Destrói a sessão
+    session_destroy();
+    header('Location: index.php');
+  }
 ?>
  
 <main>
@@ -80,12 +84,18 @@ session_start();
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-          <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-            <div id="usuarioLogado"></div>
-           </div><br>
+        <?php if(isset($_SESSION['logado'])){?>
+          <!---------------- aparece o nome do usuario e botão de logout pos logado  ------------>
+         <div class="row" id="logout">
+          <p class="col-sm-8 text-capitalize fs-3 border-bottom border-primary fw-bold"><?php echo $_SESSION['nome'] ?></p>
+          <form class="col-sm-4" method="POST" action="" >
+            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+          </form>
+          </div> 
+          <?php } ?>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
-              <a class="nav-link active fs-5" href="historico.php" id="historico">Historico</a>
+              <a class="nav-link active fs-5" href="historico_funcio.php" id="historico">Historico</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>

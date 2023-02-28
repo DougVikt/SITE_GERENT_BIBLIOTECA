@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="icon" href="img/logo.png">
 
 </head>
 <body>
@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<script> alert('Usuário não cadastrado.');</script>";
     $controle_erro = false;
   }
-
+  
+  // caso o codigo não esteja cadastrado
   $stmt = $pdo->prepare("SELECT id FROM livros WHERE codigo = ?");
   $stmt->execute([$codigo]);
   $idcodigo = $stmt->fetchColumn();
-  // caso o codigo não esteja cadastrado 
   if (!$idcodigo) {
     echo "<script> alert('codigo não cadastrado.');</script>";
     $controle_erro = false;
@@ -53,7 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<script>alert('Este nome de livro não bate com o codigo passado');</script>";
     $controle_erro = false;
   } 
-
+   
+  // caso os testes acima derem falso , sera executado
   if($controle_erro){
     $sql = "INSERT INTO emprestimo (usuario, livro, codigo, retirada, devolucao) VALUES (:nome, :titulo, :codigo, :retirada, :devolucao)";
   // enviando os dados para o banco 
@@ -65,11 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':devolucao', $devolucao);
 
     if ($stmt->execute()) {
+      //mensagem de sucesso e emcaminha para outra pagina , motivo de segurança
       echo "<script>alert('Empréstimo cadastrado com sucesso!');</script>";
+      header('Location: historico.php');
     } else {
       echo "<script> alert('Erro ao cadastrar o empréstimo.');</script>";
     }
   }
+
+}
+if(isset($_POST['logout'])) {
+  // Destrói a sessão
+  session_destroy();
+  header('Location: index.php');
 }
 ?>
 
@@ -90,12 +99,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-          <div class="sticky-sm-bottom row-2" style="text-align-last: center;">
-            <p><?php echo $_SESSION['nome']; ?></p>
-        </div><br>
+          <?php if(isset($_SESSION['logado'])){?>
+          <!---------------- aparece o nome do usuario e botão de logout pos logado  ------------>
+         <div class="row" id="logout">
+          <p class="col-sm-8 text-capitalize fs-3 border-bottom border-primary fw-bold"><?php echo $_SESSION['nome'] ?></p>
+          <form class="col-sm-4" method="POST" action="" >
+            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+          </form>
+          </div> 
+          <?php } ?>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
-              <a class="nav-link active fs-5" href="historico.php" id="historico">Historico</a>
+              <a class="nav-link active fs-5" href="historico_funcio.php" id="historico">Historico</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
@@ -114,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </nav>
   <br>
   <br>
+  <!--------------------------------- formulario de emprestimo ------------------------------------------->
   <div class="container mt-3 w-75 d-flex flex-column ">
     <h2 class="mb-3 text-center">Emprestimo</h2>
     <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
@@ -146,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
+  
       </a>
     </div>
 
@@ -165,6 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </footer>
  </div>
 </main> 
+<!----------------------- scripts --------------------------->
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="devolucaonymous"></script>

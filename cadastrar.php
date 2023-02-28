@@ -70,12 +70,14 @@ if (isset($_POST['submit'])){
         $stmt->bindParam(':cpf', $cpf);
         $stmt->execute();
         $funcionario = $stmt->fetch();
+        $usuario = false ;
       }else{
         $sql = "SELECT * FROM usuarios WHERE cpf = :cpf";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':cpf', $cpf);
         $stmt->execute();
         $usuario = $stmt->fetch();
+        $funcionario = false ;
       }
       
       // mensagem de erro para caso o cpf colocado ja tenha no banco

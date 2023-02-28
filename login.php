@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $senha_crip = password_hash($senha , PASSWORD_DEFAULT);
     
     // Preparar e executar a instrução SQL para buscar um usuário com o nome de usuário ou endereço de e-mail fornecido
-    $stmt = $pdo->prepare('SELECT *, "usuario" AS tipo , id , email , senha FROM usuarios WHERE email = ? 
+    $stmt = $pdo->prepare('SELECT id, nome, email, senha, "usuario" AS tipo FROM usuarios WHERE email = ?
                           UNION
-                          SELECT *, "funcionario" AS tipo , id ,email , senha FROM funcionarios WHERE email = ? ');
+                          SELECT id, nome, email, senha, "funcionario" AS tipo FROM funcionarios WHERE email = ?');
     
     $stmt->execute([$email, $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -30,16 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
      
       // Armazenar o ID do usuário na sessão
       $_SESSION['nome'] = $usuario['nome'];
+      $_SESSION['id'] = $usuario['id'];
       
       // Verificar se o usuário é funcionário ou não
-      if (is_null($usuario['is_funcionario'])) {
+      if ($usuario['tipo'] == 'usuario' ) {
       
         $_SESSION['user_type'] = 'usuario';
-      } else {
+      } else if ($usuario['tipo'] == 'funcionario') {
         $_SESSION['user_type'] = 'funcionario';
       }
-      $logado = isset($_SESSION['user_type']);
-      echo json_encode($logado);
+      $_SESSION['logado'] = isset($_SESSION['user_type']);
+      
       echo "<script>alert('Login efetuado com sucesso !')</script>";
       // Redirecionar para a página inicial
       header('Location: index.php');
@@ -54,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 <html lang="pt-br">
 <head>
   <title>Login</title>
-  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <link rel="icon" href="img/logo.png" type="image/x-icon">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -91,7 +92,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </div>
         
        </div>
-      
+   
+  <script src="js/javascript.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
           
 
 </body>
