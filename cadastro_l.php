@@ -25,9 +25,11 @@ session_start();
     $genero = $_POST['genero'];
     $codigo = $_POST['codigo'];
 
-    $capa = file_get_contents($_FILES['capa']['tmp_name']);
-    // Codifique a capa em base64
-    $capa_base64 = base64_encode($capa);
+    $capa_nome = $_FILES['capa']['name'];
+    $capa_tam = $_FILES['capa']['tmp_name'];
+    $destino = 'banco/'.$capa_nome;
+
+    move_uploaded_file($capa_tam ,$destino);
 
     // Verificar se já existe um livro com o mesmo código
     $stmt = $pdo->prepare("SELECT codigo FROM livros WHERE codigo = :codigo");
@@ -47,7 +49,7 @@ session_start();
     $stmt->bindParam(":ano", $ano ,PDO::PARAM_STR);
     $stmt->bindParam(":genero", $genero ,PDO::PARAM_STR);
     $stmt->bindParam(":codigo", $codigo ,PDO::PARAM_STR);
-    $stmt->bindParam(":capa", $capa_base64 ,PDO::PARAM_LOB);
+    $stmt->bindParam(":capa", $destino ,PDO::PARAM_STR);
     $stmt->execute();
 
     if ($stmt->rowCount() == 1) {
@@ -89,7 +91,7 @@ session_start();
          <div class="row" id="logout">
           <p class="col-sm-8 text-capitalize fs-3 border-bottom border-primary fw-bold"><?php echo $_SESSION['nome'] ?></p>
           <form class="col-sm-4" method="POST" action="" >
-            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+            <button class="btn btn-outline-danger" type="submit" name="logout">Sair</button>
           </form>
           </div> 
           <?php } ?>
@@ -131,7 +133,7 @@ session_start();
       </div>
       <div class="mb-3">
         <label for="ano">Ano de Publicação:</label>
-        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano">
+        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4">
       </div>
       <div class="mb-3">
         <label for="genero">Gênero:</label>
@@ -156,7 +158,6 @@ session_start();
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
       </a>
     </div>
 

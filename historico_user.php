@@ -73,7 +73,7 @@ if(isset($_POST['logout'])) {
          <div class="row" id="logout">
           <p class="col-sm-8 text-capitalize fs-3 border-bottom border-primary fw-bold"><?php echo $_SESSION['nome'] ?></p>
           <form class="col-sm-4" method="POST" action="" >
-            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+            <button class="btn btn-outline-danger" type="submit" name="logout">Sair</button>
           </form>
           </div> 
           <?php } ?>

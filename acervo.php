@@ -69,7 +69,7 @@ if(isset($_POST['logout'])) {
          <div class="row" id="logout">
           <p id="usuarioLogado" class="col-sm-8 text-capitalize fs-3 border-bottom border-primary fw-bold"></p>
           <form class="col-sm-4" method="POST" action="" >
-            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+            <button class="btn btn-outline-danger" type="submit" name="logout">Sair</button>
           </form>
           </div> 
           <?php } ?>
@@ -124,7 +124,7 @@ if(isset($_POST['logout'])) {
       <?php foreach($livros as $livro): ?>
         <div class="d-inline-flex col-md-2 col-sm-3 mb-5 ">
           <div class="card mt-3 shadow rounded-4 border border-3">
-            <img class="card-img-top" src="data:image/jpeg;base64,<?php echo $livro['capa']; ?>" alt="Capa do livro">
+            <img class="card-img-top" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
             <div class="card-body">
               <h5 class="card-title text-capitalize fw-bold"><?php echo $livro['titulo']; ?></h5>
               <ul style="background-color: #ededed;border-radius:20px;">
