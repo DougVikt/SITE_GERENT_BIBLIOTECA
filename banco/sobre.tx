@@ -34,6 +34,12 @@ banco - biblioteca {
                                   retirada
                                   devolucao
                                   }
+                         avaliacoes{
+                                  id
+                                  id_usuario  - foreign key = tab usuario
+                                  id_livro    - foreign key = tab livros
+                                  avaliacao
+                                  }
                          }
 
 }
