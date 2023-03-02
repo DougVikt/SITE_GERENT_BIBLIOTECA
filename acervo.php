@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
 </head>
 <body>
@@ -92,7 +92,7 @@ if(isset($_POST['logout'])) {
                 <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
               </li>
               <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Emprestimo</a>
+                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
               </li>
             <?php endif; ?> 
           </ul>
@@ -122,23 +122,25 @@ if(isset($_POST['logout'])) {
   <div class="container mb-5 w-100 row py-5 my-4 h-100">
     <div class="row ">
       <?php foreach($livros as $livro): ?>
-        <div class="d-inline-flex col-md-2 col-sm-3 mb-5 ">
+        <div class="d-inline-flex col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 mx-2 ">
           <div class="card mt-3 shadow rounded-4 border border-3">
-            <img class="card-img-top" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
-            <div class="card-body">
-              <h5 class="card-title text-capitalize fw-bold"><?php echo $livro['titulo']; ?></h5>
-              <ul style="background-color: #ededed;border-radius:20px;">
-                <li class="card-text fw-semibold">Autor:</li>
-                  <p class="fst-italic"> <?php echo $livro['autor']; ?></p>
-                <li class="card-text fw-semibold">Genero: </li>
-                  <p class="fst-italic"><?php echo $livro['genero']; ?></p>
-                <li class="card-text fw-semibold">Ano:</li>
-                  <p class="fst-italic"> <?php echo $livro['ano'];?></p>
-                <li class="card-text fw-semibold">Editora: </li> 
-                  <p class="fst-italic"><?php echo $livro['editora']; ?></p>
-                <li class="card-text fw-semibold">Codigo: </li> 
-                  <p class="fst-italic"><?php echo $livro['codigo'];?></p>
-              </ul>          
+            <img class="img-fluid card-img-top border border-4 border-light rounded-4" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
+            <div class="card-body text-center">
+              <div class="dropdown">
+                <button class="card-title btn text-capitalize fw-bold dropdown-toggle bt-card fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $livro['titulo']; ?></button>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                  <li class="mx-3 card-text fw-semibold">Autor:</li>
+                    <p class="mx-4 fst-italic"> <?php echo $livro['autor']; ?></p>
+                  <li class="mx-3 card-text fw-semibold">Genero: </li>
+                    <p class="mx-4 fst-italic"><?php echo $livro['genero']; ?></p>
+                  <li class="mx-3 card-text fw-semibold">Ano:</li>
+                    <p class="mx-4 fst-italic"> <?php echo $livro['ano'];?></p>
+                  <li class="mx-3 card-text fw-semibold">Editora: </li> 
+                    <p class="mx-4 fst-italic"><?php echo $livro['editora']; ?></p>
+                  <li class="mx-3 card-text fw-semibold">Codigo: </li> 
+                    <p class="mx-4 fst-italic"><?php echo $livro['codigo'];?></p>
+                </ul>          
+              </div>
             </div>
           </div>
         </div>

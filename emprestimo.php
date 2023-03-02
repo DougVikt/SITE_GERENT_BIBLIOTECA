@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="icon" href="img/logo.png">
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
+
 
 </head>
 <body>
@@ -67,8 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
       //mensagem de sucesso e emcaminha para outra pagina , motivo de segurança
-      echo "<script>alert('Empréstimo cadastrado com sucesso!');</script>";
-      header('Location: historico.php');
+      echo "<script>alert('Empréstimo cadastrado com sucesso!'); window.location='historico_funcio.php';</script>";
+
+     
     } else {
       echo "<script> alert('Erro ao cadastrar o empréstimo.');</script>";
     }
@@ -143,7 +145,7 @@ if(isset($_POST['logout'])) {
       </div>
       <div class="mb-3">
         <label for="codigo-livro">Código:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo" pattern="[A-Z0-9]+" maxlength="18" title="Coloque um codigo valido , com letras maiusculas e numeros ">
       </div>
       <div class="mb-3">
         <label for="data-emprestimo">Data da Retirada:</label>

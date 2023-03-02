@@ -139,11 +139,11 @@ if (isset($_POST['submit'])){
           </div>
           <div class="mb-0 fw-bold">
             <label for="email">Email:</label>
-            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email " name="email" required>
+            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="exemplo@hotmail.com" name="email" required title="Coloque um email valido">
           </div>
           <div class="mb-0 fw-bold">
             <label for="cpf">CPF:</label>
-            <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11}" maxlength="11" required>       
+            <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11}" maxlength="11" required title="Coloque os 11 numeros do seu CPF ">       
           </div>
           <div class="mb-0 fw-bold">
             <label for="text">Telefone:</label>

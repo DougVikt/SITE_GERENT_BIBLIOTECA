@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
 </head>
 <body>
@@ -111,12 +111,13 @@ if(isset($_POST['logout'])) {
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
 <?php if (count($historicos) > 0){ ?>
 <div class="table-responsive">
-  <table class="table table-striped table-sm">
+  <table class="table table-striped table-sm text-center">
     <thead>
       <tr>
         <th>Livro</th>
         <th>Data de Empréstimo</th>
         <th>Data de Devolução</th>
+        <th>Avaliação</th>
       </tr>
     </thead>
     <tbody>
@@ -125,12 +126,20 @@ if(isset($_POST['logout'])) {
           <td><?php echo $historico['livro']; ?></td>
           <td><?php echo date('d/m/Y', strtotime($historico['retirada'])); ?></td>
           <td><?php echo date('d/m/Y', strtotime($historico['devolucao'])); ?></td>
+          <td class="rating">
+                <span class="star" data-rating="1"></span>
+                <span class="star" data-rating="2"></span>
+                <span class="star" data-rating="3"></span>
+                <span class="star" data-rating="4"></span>
+                <span class="star" data-rating="5"></span>
+            
+          </td>         
         </tr>
       <?php } ?>
     </tbody>
   </table>
-  <?php }else { ?>
-    <p class="text-capitalize text-lg-center fs-3">Você esta sem historico no momento</p> 
+  <?php } else { ?>
+    <p class="text-capitalize text-lg-center fs-4">Você esta sem historico no momento</p> 
   <?php }?>
 </div>
 

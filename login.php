@@ -41,9 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       }
       $_SESSION['logado'] = isset($_SESSION['user_type']);
       
-      echo "<script>alert('Login efetuado com sucesso !')</script>";
-      // Redirecionar para a página inicial
-      header('Location: index.php');
+     // Redirecionar para a página inicial
+     echo "<script>alert('Login efetuado com sucesso!'); window.location='index.php';</script>";
+
       exit;
     } else {
       // Caso contrário, exibe uma mensagem de erro
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 <html lang="pt-br">
 <head>
   <title>Login</title>
-  <link rel="icon" href="img/logo.png" type="image/x-icon">
+  <link rel="icon" href="img/logo_aba.svg" type="image/x-icon">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">

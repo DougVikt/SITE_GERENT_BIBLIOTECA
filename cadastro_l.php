@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
 </head>
 <body>
@@ -141,11 +141,11 @@ session_start();
       </div>
       <div class="mb-3">
         <label for="codigo">Código:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo" pattern="[A-Z0-9]+" maxlength="18" title="Coloque um codigo valido , com letras maiusculas e numeros ">
       </div>
       <div class="mb-3">
         <label for="capa">Capa:</label>
-        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa">
+        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
       </div>
       <button type="submit" class="btn btn-info">Cadastrar</button>
     </form>
