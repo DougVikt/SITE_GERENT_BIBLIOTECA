@@ -122,12 +122,13 @@ if(isset($_POST['logout'])) {
   <div class="container mb-5 w-100 row py-5 my-4 h-100">
     <div class="row ">
       <?php foreach($livros as $livro): ?>
-        <div class="d-inline-flex col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 mx-2 ">
+        <div class="d-inline-flex col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 mx-4 ">
           <div class="card mt-3 shadow rounded-4 border border-3">
-            <img class="img-fluid card-img-top border border-4 border-light rounded-4" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
+            <img class="img-fluid card-img-top border border-4 border-light rounded-4" style="width: 30rem; height: 25rem;" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
             <div class="card-body text-center">
               <div class="dropdown">
-                <button class="card-title btn text-capitalize fw-bold dropdown-toggle bt-card fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $livro['titulo']; ?></button>
+                <h5 class="card-title text-capitalize fw-bold   fs-6" ><?php echo $livro['titulo']; ?></h5>
+                <button class="dropdown-toggle bt-card rounded-4 btn btn-outline-secondary fs-6 fw-bold"type="button" data-bs-toggle="dropdown" aria-expanded="false" >MAIS</button>
                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                   <li class="mx-3 card-text fw-semibold">Autor:</li>
                     <p class="mx-4 fst-italic"> <?php echo $livro['autor']; ?></p>
