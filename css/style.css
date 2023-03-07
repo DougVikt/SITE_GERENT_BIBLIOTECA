@@ -25,29 +25,3 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-
-.rating {
-    display: inline-block;
-    font-size: 0;
-    position: relative;
-  }
-  
-  .rating .star {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background: url('star.png') no-repeat;
-    background-size: contain;
-    cursor: pointer;
-  }
-  
-  .rating .star:hover,
-  .rating .star:hover ~ .star {
-    background-position: 0 -25px;
-  }
-  
-  .rating .star.active,
-  .rating .star.active ~ .star {
-    background-position: 0 -50px;
-  }
-  
