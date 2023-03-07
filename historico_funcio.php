@@ -11,15 +11,16 @@
 
 </head>
 <body>
-  <?php
-  include 'conexao.php';
+<?php
+include 'conexao.php';
 session_start();
 
 // consulta no banco de dados caso nada colsultado
 $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo 
 FROM emprestimo 
 INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
-INNER JOIN livros ON emprestimo.codigo = livros.id
+INNER JOIN livros ON emprestimo.codigo = livros.id 
+ORDER BY emprestimo.retirada asc;
 ";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -42,6 +43,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id
+  ORDER BY emprestimo.retirada asc;
   ";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();

@@ -22,7 +22,7 @@ $usuario_id = $_SESSION['id'];
 
 // Faz a consulta SQL para obter o histórico do usuário
 // consulta no banco de dados caso nada consultado
-$sql = "SELECT livro , retirada ,devolucao FROM emprestimo WHERE usuario = :user_id ";
+$sql = "SELECT * FROM emprestimo WHERE usuario = :user_id ";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['user_id' => $usuario_id]);
@@ -30,16 +30,16 @@ $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_GET['q']) && !empty($_GET['q'])) {
   $q = $_GET['q'];
-  $sql = "SELECT livro , retirada , devolucao FROM emprestimo
+  $sql = "SELECT id ,livro , retirada , devolucao FROM emprestimo
   WHERE ( livro LIKE :q OR retirada LIKE '%".date_format(date_create($q),'Y-m-d')."%' OR devolucao LIKE '%" . date_format(date_create($q), 'Y-m-d') . "%' )
   AND usuario = :id";
   $stmt = $pdo->prepare($sql);
-  $stmt->execute(['q' => $q, 'id' => $_SESSION['id']]);
+  $stmt->execute(['q' => $q, 'codigo' => $_SESSION['codigo']]);
   $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } else {
   // código para recuperar todos os livros da tabela
-  $sql = "SELECT livro , retirada ,devolucao FROM emprestimo WHERE usuario = :user_id ";
+  $sql = "SELECT * FROM emprestimo WHERE usuario = :user_id ";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute(['user_id' => $usuario_id]);
@@ -50,6 +50,25 @@ if(isset($_POST['logout'])) {
   session_destroy();
   header('Location: index.php');
 }
+
+if (isset($_POST['submit'])){
+
+  $avaliacao = $_POST['avaliacao'];
+  $livro = $_POST['idlivro'];
+
+  $sql = "INSERT INTO avaliacoes (id_usuario , id_livro , avaliacao) VALUES (:userid , :livro , :avalia )"; 
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(":userid", $usuario_id );
+  $stmt->bindParam(":livro", $livro );
+  $stmt->bindParam(":avalia", $avaliacao );
+  $stmt->execute();
+  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+}
+ 
+
+
 
 ?>
 <main>
@@ -90,7 +109,7 @@ if(isset($_POST['logout'])) {
       </div>
     </div>
   </nav>
-  <br>
+<br>
   <!---------------------------------------- separador e busca ---------------------------------------------------->
 <header class="p-3 mx-auto mt-4 bg-info bg-gradient">
     <div class="container-fluid">
@@ -122,29 +141,45 @@ if(isset($_POST['logout'])) {
     </thead>
     <tbody>
       <?php foreach ($historicos as $historico) { ?>
-        <tr>
+      <tr>
           <td><?php echo $historico['livro']; ?></td>
-          <td><?php echo date('d/m/Y', strtotime($historico['retirada'])); ?></td>
-          <td><?php echo date('d/m/Y', strtotime($historico['devolucao'])); ?></td>
-          <td class="rating">
-                <span class="star" data-rating="1"></span>
-                <span class="star" data-rating="2"></span>
-                <span class="star" data-rating="3"></span>
-                <span class="star" data-rating="4"></span>
-                <span class="star" data-rating="5"></span>
-            
+         <td><?php echo date('d/m/Y', strtotime($historico['retirada'])); ?></td>
+         <td><?php echo date('d/m/Y', strtotime($historico['devolucao'])); ?></td>
+          <td>
+            <form method="post" action="#">
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">
+              </a>
+
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>">
+              </a>
+
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>">
+              </a>
+
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(4, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's4' . $historico['codigo']; ?>">
+              </a>
+
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(5, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's5' . $historico['codigo']; ?>">
+              </a>
+              <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
+              <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
+              <button type="submit" name="submit" class="btn btn-outline-success fs-6">Avaliar</button>
+            </form>
           </td>         
         </tr>
       <?php } ?>
+
     </tbody>
   </table>
   <?php } else { ?>
     <p class="text-capitalize text-lg-center fs-4">Você esta sem historico no momento</p> 
   <?php }?>
-</div>
-
-
-  
+</div> 
  <!----------------------------------- footer ------------------------------------->
  <div class="container position-absolute top-100 start-50 translate-middle mt-lg-5">
  <footer class="row  py-5 my-sm-4 border-top">
@@ -168,6 +203,7 @@ if(isset($_POST['logout'])) {
   </footer>
    </div>
 </main> 
+    
     <script src="js/javascript.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -110,31 +110,31 @@ if(isset($_POST['logout'])) {
           <div class="container-fluid mt-3 shadow divi-card">
             <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
           </div>
-          <div class="row row-cols-1 row-cols-md-4 ">
-            <div class="card mx-auto" style="background-color:deepskyblue">
+          <div class="row row-cols-1 row-cols-md-4">
+            <div class="mx-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                  <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livros['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                  <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                   <div class="card-body">
                     <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['0']['titulo'] ?></p>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="mx-auto" >
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livros['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['1']['titulo'] ?></p>
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="mx-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livros['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['2']['titulo'] ?></p>
                     </div>
@@ -150,30 +150,30 @@ if(isset($_POST['logout'])) {
             <h3 class="card-2 fw-bold fs-2"> LANÇAMENTOS </h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="card mx-auto" style="background-color:deepskyblue">
+          <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['0']['titulo'] ?></p>
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['1']['titulo'] ?></p>
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
                     </div>
@@ -189,30 +189,30 @@ if(isset($_POST['logout'])) {
             <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="card mx-auto" style="background-color:deepskyblue">
+          <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card mx-auto" style="background-color:deepskyblue">
+            <div class="ms-auto">
               <div class="col">
-                <div class="card shadow-sm">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="50%" height="425" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <div class="card shadow h-100">
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
                     </div>
