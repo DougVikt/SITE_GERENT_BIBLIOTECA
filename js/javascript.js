@@ -24,3 +24,23 @@ function verificarLogado(logado , nomeUsuario ,user_type) {
 }
 
 
+// traca a imagem da estrela de acordo com o click 
+function Avaliar(estrela, idlivro) {
+  var avaliacao = 0;
+  var estrelaId;
+
+  for (var i = 1; i <= 5; i++) {
+    estrelaId = "s" + i + idlivro;
+    if (i <= estrela) {
+      document.getElementById(estrelaId).src = "img/star-1.png";
+      avaliacao = estrela;
+    } else {
+      document.getElementById(estrelaId).src = "img/star-0.png";
+    }
+  }
+
+  document.getElementById('avaliacao' + idlivro).value = avaliacao;
+
+
+
+}
