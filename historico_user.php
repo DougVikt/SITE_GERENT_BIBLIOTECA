@@ -59,18 +59,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
   $avaliacao = $_POST['avaliacao'];
   $livro = $_POST['idlivro'];
 
-  $sql = "INSERT INTO avaliacoes (id_usuario , id_livro , avaliacao) VALUES (:userid , :livro , :avalia )
-          ON DUPLICATE KEY UPDATE avaliacao = :avaliacao";
-
+  $sql = "SELECT * FROM avaliacoes WHERE id_usuario = :userid AND id_livro = :livro";
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(":userid", $usuario_id );
   $stmt->bindParam(":livro", $livro );
-  $stmt->bindParam(":avalia", $avaliacao );
-  $stmt->bindParam(":avaliacao", $avaliacao);
   $stmt->execute();
-  $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $resposta = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  header('historico_user.php');
+  if(count($resposta) > 0){
+    $sql2 = "UPDATE avaliacoes SET avaliacao = :avalia WHERE id_usuario = :userid AND id_livro = :livro";
+  }
+  else{
+    $sql2 = "INSERT INTO avaliacoes (id_usuario , id_livro , avaliacao) VALUES (:userid , :livro , :avalia )";
+  }
+    $stmt = $pdo->prepare($sql2);
+    $stmt->bindParam(":userid", $usuario_id );
+    $stmt->bindParam(":livro", $livro );
+    $stmt->bindParam(":avalia", $avaliacao );
+    $stmt->execute();
+  
+  header('Location:historico_user.php');
+  
 }
   
   
@@ -163,18 +172,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               $stmt->bindParam(":livro" , $livro);
               $stmt->bindParam(":usuario",$usuario_id);
               $stmt->execute();
-              $avaliacao = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                 
+              $avaliacao = $stmt->fetchAll(PDO::FETCH_ASSOC);   
             ?>
-              <?php if (is_numeric($avaliacao) && $avaliacao > 0){ ?>
-               <?php print_r($avaliacao); ?>
-                <script>carregarAvaliacoes( 
-                  <?php echo $avaliacao; ?> ,  "<?php echo $historico['codigo']; ?>")
-                </script>
-               <?php } ?>
-          
-            <form method="post" action="#">
+            <form method="post" action="">
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>')">
                   <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">
               </a>
@@ -197,7 +197,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
               <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
               <button type="submit" name="submit" id="bt-submit" class="btn btn-outline-success fs-6">Avaliar</button>
-           
+              
+              <?php if (count($avaliacao) > 0){ ?>
+                <?php print_r($avaliacao); ?>
+                <script>carregarAvaliacoes( 
+                  <?php echo $avaliacao[0]['avaliacao']; ?> ,  "<?php echo $historico['codigo']; ?>")
+                </script>
+              <?php } ?>
             </form>
               
         </tr>
