@@ -44,12 +44,10 @@ function Avaliar(estrela, idlivro) {
 }
 
 function carregarAvaliacoes(avaliacao, idlivro) {
-  for (var i = 1; i <= 5; i++) {
+  for (var i = 0; i <= 5; i++) {
     var img = document.getElementById('s' + i + idlivro);
     if (i <= avaliacao) {
-      img.src = 'img/star-1.png';
-    } else {
-      img.src = 'img/star-0.png';
+      Avaliar(avaliacao , idlivro);
     }
   }
 }
