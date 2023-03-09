@@ -150,7 +150,7 @@ if(isset($_POST['logout'])) {
             <h3 class="card-2 fw-bold fs-2"> LANÇAMENTOS </h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="ms-auto">
+          <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
@@ -160,7 +160,7 @@ if(isset($_POST['logout'])) {
                 </div>
               </div>
             </div>
-            <div class="ms-auto">
+            <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
@@ -170,7 +170,7 @@ if(isset($_POST['logout'])) {
                 </div>
               </div>
             </div>
-            <div class="ms-auto">
+            <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
@@ -189,7 +189,7 @@ if(isset($_POST['logout'])) {
             <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="ms-auto">
+          <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
@@ -199,7 +199,7 @@ if(isset($_POST['logout'])) {
                 </div>
               </div>
             </div>
-            <div class="ms-auto">
+            <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
@@ -209,7 +209,7 @@ if(isset($_POST['logout'])) {
                 </div>
               </div>
             </div>
-            <div class="ms-auto">
+            <div class="mx-auto">
               <div class="col">
                 <div class="card shadow h-100">
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
