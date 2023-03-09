@@ -174,16 +174,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               $stmt->execute();
               $avaliacao = $stmt->fetchAll(PDO::FETCH_ASSOC);   
             ?>
+
             <form method="post" action="">
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>')">
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
                   <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">
               </a>
 
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>')">
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>' )">
                   <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>">
               </a>
 
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>')">
+              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>' )">
                   <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>">
               </a>
 
@@ -196,15 +197,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               </a>
               <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
               <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
-              <button type="submit" name="submit" id="bt-submit" class="btn btn-outline-success fs-6">Avaliar</button>
-              
-              <?php if (count($avaliacao) > 0){ ?>
-                <?php print_r($avaliacao); ?>
-                <script>carregarAvaliacoes( 
-                  <?php echo $avaliacao[0]['avaliacao']; ?> ,  "<?php echo $historico['codigo']; ?>")
-                </script>
-              <?php } ?>
+              <button type="submit" name="submit" id="bt-submit" class= " ms-3 btn btn-outline-success fs-6">Avaliar</button>
             </form>
+            <script>
+              ExibirEstrela(
+                <?php echo $avaliacao[0]['avaliacao'] ?>,
+                '<?php echo $historico['codigo'] ?> '
+              )
+            </script>
               
         </tr>
       <?php } ?>
