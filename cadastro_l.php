@@ -23,8 +23,6 @@ session_start();
     $editora = $_POST['editora'];
     $ano = $_POST['ano'];
     $genero = $_POST['genero'];
-    $codigo = $_POST['codigo'];
-
     $capa_nome = $_FILES['capa']['name'];
     $capa_tam = $_FILES['capa']['tmp_name'];
     $destino = 'banco/'.$capa_nome;
@@ -116,36 +114,32 @@ session_start();
   </nav>
   <br>
   <br>
-  <div class="container-fluid mt-3 w-75 posi">
+  <div class="container-fluid mt-3 w-75">
     <h2 class="mb-3 text-center">Cadastrar Livro</h2>
     <form method="post" action="" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
         <label for="titulo">Título:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" require>
       </div>
       <div class="mb-3">
         <label for="autor">Autor:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" require>
       </div>
       <div class="mb-3">
         <label for="editora">Editora:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" require>
       </div>
       <div class="mb-3">
         <label for="ano">Ano de Publicação:</label>
-        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4">
+        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" require>
       </div>
       <div class="mb-3">
         <label for="genero">Gênero:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero">
-      </div>
-      <div class="mb-3">
-        <label for="codigo">Código:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo" pattern="[A-Z0-9]+" maxlength="18" title="Coloque um codigo valido , com letras maiusculas e numeros ">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero" require>
       </div>
       <div class="mb-3">
         <label for="capa">Capa:</label>
-        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
+        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " require>
       </div>
       <button type="submit" class="btn btn-info">Cadastrar</button>
     </form>
