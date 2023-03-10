@@ -191,23 +191,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
 
             <form method="post" action="">
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
-                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">
               </a>
 
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>' )">
-                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>">
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>">
               </a>
 
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>' )">
-                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>">
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>">
               </a>
 
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(4, '<?php echo $historico['codigo']; ?>')">
-                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's4' . $historico['codigo']; ?>">
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's4' . $historico['codigo']; ?>">
               </a>
 
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(5, '<?php echo $historico['codigo']; ?>')">
-                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's5' . $historico['codigo']; ?>">
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's5' . $historico['codigo']; ?>">
               </a>
               <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
               <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">

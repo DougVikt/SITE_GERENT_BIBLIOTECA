@@ -69,8 +69,8 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <br>
   <br>
   <?php if (count($livros) > 0){ ?>
-<div class="container-fluid mt-5">
-    <table class="table">
+<div class="container-fluid mt-5 ">
+    <table class="table text-center">
       <thead>
         <tr>
           <th>Titulo</th>
@@ -93,7 +93,9 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['genero'];  ?></td>
             <td><?php echo $livro['codigo'];  ?></td>
             <td>
-              <button class="btn btn-outline-warning fs-6" type="submit" id="editar">Editar 
+              <button class="btn btn-outline-warning border-dark  text-dark fs-6" type="submit" id="editar" >Editar 
+              </button>
+              <button class="btn btn-outline-danger border-dark fs-6" type="submit" id="excluir">Excluir 
               </button>
             </td>
           </tr>

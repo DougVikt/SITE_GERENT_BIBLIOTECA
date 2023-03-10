@@ -29,13 +29,15 @@ session_start();
 
     move_uploaded_file($capa_tam ,$destino);
 
+    $codigo = mt_rand(10000000 , 99999999); // Gera um código aleatório de 6 caracteres
+   
     // Verificar se já existe um livro com o mesmo código
     $stmt = $pdo->prepare("SELECT codigo FROM livros WHERE codigo = :codigo");
     $stmt->bindParam(":codigo", $codigo);
     $stmt->execute();
     $result = $stmt->fetch();
     if ($stmt->rowCount() == 1) {
-      echo "<script> alert('Já existe um livro cadastrado com esse código.');window.location.href = 'cadastro_l.php'</script>";
+      $codigo = mt_rand(10000000 , 99999999);
       
     }
 
@@ -119,27 +121,27 @@ session_start();
     <form method="post" action="" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
         <label for="titulo">Título:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" require>
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" required>
       </div>
       <div class="mb-3">
         <label for="autor">Autor:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" require>
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" required>
       </div>
       <div class="mb-3">
         <label for="editora">Editora:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" require>
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" required>
       </div>
       <div class="mb-3">
         <label for="ano">Ano de Publicação:</label>
-        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" require>
+        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" required>
       </div>
       <div class="mb-3">
         <label for="genero">Gênero:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero" require>
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero" required>
       </div>
       <div class="mb-3">
         <label for="capa">Capa:</label>
-        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " require>
+        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " required>
       </div>
       <button type="submit" class="btn btn-info">Cadastrar</button>
     </form>
