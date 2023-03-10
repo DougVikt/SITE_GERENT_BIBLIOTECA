@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>editar</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
+
 </head>
 <?php
-include('conexao.php')
+include('conexao.php');
+session_start();
 
+$sql = "SELECT * FROM livros where 1 ";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -59,38 +68,42 @@ include('conexao.php')
   </nav>
   <br>
   <br>
-  <div class="container-fluid mt-3 w-75 posi">
-    <h2 class="mb-3 text-center">Cadastrar Livro</h2>
-    <form method="post" action="" enctype="multipart/form-data" class="fs-5 fw-bold">
-      <div class="mb-3">
-        <label for="titulo">Título:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
-      </div>
-      <div class="mb-3">
-        <label for="autor">Autor:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor">
-      </div>
-      <div class="mb-3">
-        <label for="editora">Editora:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora">
-      </div>
-      <div class="mb-3">
-        <label for="ano">Ano de Publicação:</label>
-        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4">
-      </div>
-      <div class="mb-3">
-        <label for="genero">Gênero:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero">
-      </div>
-      <div class="mb-3">
-        <label for="capa">Capa:</label>
-        <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
-      </div>
-      <button type="submit" class="btn btn-info">Cadastrar</button>
-    </form>
+  <?php if (count($livros) > 0){ ?>
+<div class="container-fluid mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Autor</th>
+          <th>Editora</th>
+          <th>Ano</th>
+          <th>Genero</th>
+          <th>Codigo</th>
+          <th></th>
+        </tr>
+      </thead>
+     
+      <tbody>
+        <?php foreach ($livros as $livro):?>
+          <tr>
+            <td><?php echo $livro['titulo'];  ?></td>
+            <td><?php echo $livro['autor']; ?></td>
+            <td><?php echo $livro['editora'];  ?></td>
+            <td><?php echo $livro['ano'];  ?></td>
+            <td><?php echo $livro['genero'];  ?></td>
+            <td><?php echo $livro['codigo'];  ?></td>
+            <td>
+              <button class="btn btn-outline-warning fs-6" type="submit" id="editar">Editar 
+              </button>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <?php }else { ?>
+    <p class="text-capitalize text-lg-center fs-3">Sem livros no acervo</p> 
+  <?php }?>
   </div>
-  <br>
-  
    
  <!----------------------------------- footer ------------------------------------->
  <div class="container">

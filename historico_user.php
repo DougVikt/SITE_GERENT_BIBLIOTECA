@@ -81,11 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
   header('Location:historico_user.php');
   
 }
-  
-  
-
- 
-
 
 ?>
 <main>
@@ -173,7 +168,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               $stmt->bindParam(":usuario",$usuario_id);
               $stmt->execute();
               $avaliacao = $stmt->fetchAll(PDO::FETCH_ASSOC);   
-            ?>
+            ?> 
+            <script>
+              function ExibirEstrelas(avaliado , idlivro){
+                      
+                      var estrelaId
+                      for (var i = 1; i <= 5; i++) {
+                        estrelaId = "s" + i + idlivro;
+                        if (i <= avaliado) {
+                          document.getElementById(estrelaId).src = "img/star-1.png";
+                        } else {
+                          document.getElementById(estrelaId).src = "img/star-0.png";
+                        }
+                      }
+
+
+
+                    }
+            </script>
+
+            
 
             <form method="post" action="">
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
@@ -199,10 +213,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
               <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
               <button type="submit" name="submit" id="bt-submit" class= " ms-3 btn btn-outline-success fs-6">Avaliar</button>
             </form>
-            <script>
-              ExibirEstrela(
+           <script>
+              ExibirEstrelas(
                 <?php echo $avaliacao[0]['avaliacao'] ?>,
-                '<?php echo $historico['codigo'] ?> '
+                '<?php echo $historico['codigo'] ?>'
               )
             </script>
               
