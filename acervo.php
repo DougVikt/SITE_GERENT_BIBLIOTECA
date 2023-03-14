@@ -21,11 +21,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
    $funcionario = true;
 }
 
+
 // Consulta no banco de dados
-$sql = "SELECT * FROM livros WHERE 1";
+$sql = "SELECT livros.*, COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
+FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro GROUP BY livros.id";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 if (isset($_GET['q']) && !empty($_GET['q'])) {
   $q = $_GET['q'];
@@ -36,7 +40,8 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
   $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
   // código para recuperar todos os livros da tabela
-  $sql = "SELECT * FROM livros where 1";
+  $sql = "SELECT livros.*, COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
+  FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro GROUP BY livros.id";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -88,11 +93,21 @@ if(isset($_POST['logout'])) {
             </li>
               <!------- variavel que vem do php -->
             <?php if ($funcionario): ?> 
-              <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+              <li class="nav-item dropdown fs-5 text-dark">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciamento
+                </a> 
+                <ul class="dropdown-menu ">
+                  <li class=" dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="editar.php">Editar livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                  </li>
+                </ul>
               </li>
             <?php endif; ?> 
           </ul>
@@ -119,13 +134,28 @@ if(isset($_POST['logout'])) {
       </div>
     </div>
   </header>
-  <div class="container mb-5 w-100 row py-5 my-4 h-100">
-    <div class="row ">
+  <div class="container-fluid h-100 mt-3">
+    <div class="row">
       <?php foreach($livros as $livro): ?>
-        <div class="d-inline-flex col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 mx-4 ">
-          <div class="card mt-3 shadow rounded-4 border border-3">
+        <div class="d-inline-flex col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4 ">
+          <div class="card mt-4 p-4 shadow rounded-5 border border-3">
             <img class="img-fluid card-img-top border border-4 border-light rounded-4" style="width: 30rem; height: 25rem;" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
             <div class="card-body text-center">
+              <a class="p-0" href="javascript:void(0)" >
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e1' . $livro['id']; ?>">
+              </a>
+              <a class="p-0" href="javascript:void(0)" >
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e2' . $livro['id']; ?>">
+              </a>
+              <a class="p-0" href="javascript:void(0)" >
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e3' . $livro['id']; ?>">
+              </a>
+              <a class="p-0" href="javascript:void(0)" >
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e4' . $livro['id']; ?>">
+              </a>
+              <a class="p-0" href="javascript:void(0)" >
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e5' . $livro['id']; ?>">
+              </a>
               <div class="dropdown">
                 <h5 class="card-title text-capitalize fw-bold   fs-6" ><?php echo $livro['titulo']; ?></h5>
                 <button class="dropdown-toggle bt-card rounded-4 btn btn-outline-secondary fs-6 fw-bold"type="button" data-bs-toggle="dropdown" aria-expanded="false" >MAIS</button>
@@ -138,9 +168,29 @@ if(isset($_POST['logout'])) {
                     <p class="mx-4 fst-italic"> <?php echo $livro['ano'];?></p>
                   <li class="mx-3 card-text fw-semibold">Editora: </li> 
                     <p class="mx-4 fst-italic"><?php echo $livro['editora']; ?></p>
-                  <li class="mx-3 card-text fw-semibold">Codigo: </li> 
-                    <p class="mx-4 fst-italic"><?php echo $livro['codigo'];?></p>
-                </ul>          
+                </ul> 
+                <script>
+                  
+                    // aparece as estrelas no acervo
+                    function EstrelasAcervo(avaliado , idlivro){
+                                          
+                      var estrelaId
+                      for (var i = 1; i <= 5; i++) {
+                        estrelaId = "e" + i + idlivro;
+                        if (i <= avaliado) {
+                          document.getElementById(estrelaId).src = "img/star-1.png";
+                        } else {
+                          document.getElementById(estrelaId).src = "img/star-0.png";
+                        }
+                      }
+                    }
+
+
+                    EstrelasAcervo(
+                      <?php echo $livro['media'] ?>,
+                      '<?php echo $livro['id'] ?>'
+                    )
+                </script>         
               </div>
             </div>
           </div>

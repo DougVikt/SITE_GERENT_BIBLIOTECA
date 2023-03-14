@@ -76,11 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <label for="senha">Senha:</label>
             <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha">
           </div>
-          <div class="form-check mb-3 fs-6 ">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" name="remember"> Lembrar
-            </label>
-          </div>
           <br>
           <button type="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Entrar</button>
         </form>

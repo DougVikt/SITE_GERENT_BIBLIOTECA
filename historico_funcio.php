@@ -99,12 +99,22 @@ if(isset($_POST['logout'])) {
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
             
-            <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
-            </li>
+            <li class="nav-item dropdown fs-5 text-dark">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciamento
+                </a> 
+                <ul class="dropdown-menu ">
+                  <li class=" dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="editar.php">Editar livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                  </li>
+                </ul>
+              </li>
         
           </ul>
           <br>
@@ -116,7 +126,7 @@ if(isset($_POST['logout'])) {
   <br>
 
 <!---------------------------------------- separador e busca ---------------------------------------------------->
-<header class="p-3 mx-auto bg-info bg-gradient">
+<header class="p-3 mx-auto bg-info bg-gradient ">
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -134,15 +144,16 @@ if(isset($_POST['logout'])) {
 </header>
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
 <?php if (count($emprestimos) > 0){ ?>
-<div class="container">
-    <table class="table">
+<div class="container-fluid">
+    <table class="table table-hover text-center">
       <thead>
-        <tr>
+        <tr class="table-primary">
           <th>Usuário</th>
           <th>Livro</th>
           <th>Codigo</th>
           <th>Data de Retirada</th>
           <th>Data de Devolução</th>
+          <th>Entregue</th>
         </tr>
       </thead>
      

@@ -181,14 +181,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
                           document.getElementById(estrelaId).src = "img/star-0.png";
                         }
                       }
-
-
-
                     }
             </script>
-
             
-
             <form method="post" action="">
               <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
                 <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>">

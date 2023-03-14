@@ -78,12 +78,22 @@ if(isset($_POST['logout'])) {
             </li>
               <!------- variavel que vem do php -->
             
-            <?php if ($funcionario): ?> 
-              <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+            <?php if ($funcionario): ?>
+              <li class="nav-item dropdown fs-5 text-dark">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciamento
+                </a> 
+                <ul class="dropdown-menu ">
+                  <li class=" dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="editar.php">Editar livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                  </li>
+                </ul>
               </li>
             <?php endif; ?> 
           </ul>
@@ -237,7 +247,7 @@ if(isset($_POST['logout'])) {
  <div class="container">
   <footer class="row py-5 my-sm-4 border-top">
     <div class="col mb-3">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+      <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
       </a>
     </div>

@@ -54,12 +54,22 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li class="nav-item dropdown">
               <a class="nav-link active fs-5" href="acervo.php" id="acervo">Acervo</a>
             </li>
-            <li class="nav-item dropdown">
-                <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
-          </li>
+            <li class="nav-item dropdown fs-5 text-dark">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciamento
+                </a> 
+                <ul class="dropdown-menu ">
+                  <li class=" dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="editar.php">Editar livros</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                  </li>
+                </ul>
+              </li>
           </ul>
           <br>
          </div>
@@ -70,9 +80,9 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <br>
   <?php if (count($livros) > 0){ ?>
 <div class="container-fluid mt-5 ">
-    <table class="table text-center">
+    <table class="table text-center  table-hover">
       <thead>
-        <tr>
+        <tr class="table-primary">
           <th>Titulo</th>
           <th>Autor</th>
           <th>Editora</th>
