@@ -50,13 +50,20 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-if (isset($_GET['delete']) && !empty($_GET['delete'])){
-  $del = $_GET['delete'];
-  $sql = "DELETE FROM emprestimo WHERE id = :del";
+if (isset($_GET['confirme']) && !empty($_GET['confirme'])){
+  echo "<script> alert('foi')</script>";
+  if ($_GET['confirme'] === "1"){
+    $sql = "UPDATE emprestimo SET status = 'entregue' WHERE usuario = ? and codigo = ?";
+    echo "passou";
+  }
+  else {
+    $sql = "UPDATE emprestimo SET status = 'pendente' WHERE usuario = ? and codigo = ?";
+  }
+  
   $exec = $pdo->prepare($sql);
-  $exec-> execute(['del' => $del]);
+  $exec-> execute([$emprestimos['usuario'] , $emprestimos['codigo']]);
 
-  header('Location: historico.php');
+  header('Location: historico_funcio.php');
 
 }
 if(isset($_POST['logout'])) {
@@ -126,14 +133,14 @@ if(isset($_POST['logout'])) {
   <br>
 
 <!---------------------------------------- separador e busca ---------------------------------------------------->
-<header class="p-3 mx-auto bg-info bg-gradient ">
+<header class="p-3 bg-info bg-gradient navbar-expand-lg w-100">
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
         </a>
 
-        <div class="col-1 col-lg-auto mb-3 mb-lg-0 ms-auto me-lg-3">
+        <div class="col-md-4 col-lg-3 mb-3 mb-lg-0 ms-auto me-lg-3">
             <form class="d-flex" role="search">
             <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
             </form>
@@ -153,22 +160,45 @@ if(isset($_POST['logout'])) {
           <th>Codigo</th>
           <th>Data de Retirada</th>
           <th>Data de Devolução</th>
+          <th>Status</th>
           <th>Entregue</th>
         </tr>
       </thead>
      
       <tbody>
         <?php foreach ($emprestimos as $emprestimo):?>
+          <script>
+          function Confirmando(button , status) {
+            let image = button.querySelector('img');
+
+            if (status === 'pendente') {
+              button.classList.remove('btn-outline-success');
+              button.classList.add('btn-outline-danger');
+              button.disabled = true;
+              image.setAttribute('src', 'img/cancelar.png');
+              image.setAttribute('data-state', 'cancelar');
+            } else if (status === 'entregue') {
+              button.classList.remove('btn-outline-danger');
+              button.classList.add('btn-outline-success');
+              button.disabled = false;
+              image.setAttribute('src', 'img/confirmar.png');
+              image.setAttribute('data-state', 'confirmar');
+            }
+          }
+          </script>
           <tr>
             <td><?php echo $emprestimo['nome'];  ?></td>
             <td><?php echo $emprestimo['livro']; ?></td>
             <td><?php echo $emprestimo['codigo'];  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['retirada']));  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
+            <td><p class="fw-bold text-capitalize"><?php echo $emprestimo['status'] ?></p> </td>
             <td>
               <form method="get">
-                <input type="hidden" name="delete" value="<?php echo $emprestimo['id']; ?>">
-                <button type="submit" class="btn btn-warning btn-outline-danger">Excluir</button>
+                <input type="hidden" name="confirme" value="1">
+                <button type="submit" class="btn btn-outline-success p-0" id="buttom-confirm" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>' )" >
+                  <img style="width: 3rem; height: 2rem;" class="btn" src="img/confirmar.png" alt="icone de confirmação" data-state="confirmar"> 
+                </button>
               </form>
             </td>
 

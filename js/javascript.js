@@ -43,3 +43,47 @@ function Avaliar(estrela, idlivro ) {
 document.getElementById('avaliacao' + idlivro).value = avaliacao;
 
 }
+
+/*
+function Confirmando(status){
+
+  let button = document.getElementById("buttom-confirm");
+  let image = document.getElementById("status");
+
+  if (status === "entregue") {
+
+    image.src = "img/cancelar.png";
+    button.classList.toggle('btn-outline-danger');
+  } else {
+
+    image.src = "img/confirmar.png";
+    button.classList.toggle('btn-outline-success');
+    
+  }
+
+  }
+  
+
+  function Confirmando(button) {
+    // Encontra a linha do empréstimo correspondente
+    const linhaEmprestimo = button.closest('tr');
+
+    // Encontra a imagem dentro do botão
+    const imagemBotao = button.querySelector('img');
+
+    // Alterna entre as imagens "confirmar" e "cancelar"
+    if (imagemBotao.src.endsWith('confirmar.png')) {
+      imagemBotao.src = 'img/cancelar.png';
+    } else {
+      imagemBotao.src = 'img/confirmar.png';
+    }
+
+    // Alterna a classe do botão entre "btn-success" e "btn-info"
+    button.classList.toggle('btn-outline-success');
+    button.classList.toggle('btn-outline-danger');
+
+    // Desativa todos os elementos da linha do empréstimo
+    const elementosLinha = linhaEmprestimo.querySelectorAll('td, button');
+    elementosLinha.forEach(elemento => elemento.disabled = true);
+  }
+  */
