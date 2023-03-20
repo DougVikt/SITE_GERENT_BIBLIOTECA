@@ -16,7 +16,7 @@ include 'conexao.php';
 session_start();
 
 // consulta no banco de dados caso nada colsultado
-$sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo 
+$sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome 
 FROM emprestimo 
 INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
 INNER JOIN livros ON emprestimo.codigo = livros.id 
@@ -39,7 +39,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } elseif(empty($_GET['p'])) {
    // consulta no banco de dados caso nada colsultado
-  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo 
+  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome
   FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id
@@ -50,22 +50,16 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-if (isset($_GET['confirme']) && !empty($_GET['confirme'])){
-  echo "<script> alert('foi')</script>";
-  if ($_GET['confirme'] === "1"){
-    $sql = "UPDATE emprestimo SET status = 'entregue' WHERE usuario = ? and codigo = ?";
-    echo "passou";
-  }
-  else {
-    $sql = "UPDATE emprestimo SET status = 'pendente' WHERE usuario = ? and codigo = ?";
-  }
+if (isset($_GET['confirme']) && $_GET['confirme'] === "1" && isset($_GET['id'])) {
   
+  $id = $_GET['id'];
+  $sql = "UPDATE emprestimo SET status = 'entregue' WHERE id = ?";
   $exec = $pdo->prepare($sql);
-  $exec-> execute([$emprestimos['usuario'] , $emprestimos['codigo']]);
-
+  $exec->execute([$id]);
+  
   header('Location: historico_funcio.php');
-
 }
+
 if(isset($_POST['logout'])) {
   // Destrói a sessão
   session_destroy();
@@ -165,43 +159,47 @@ if(isset($_POST['logout'])) {
         </tr>
       </thead>
      
-      <tbody>
+      <tbody >
         <?php foreach ($emprestimos as $emprestimo):?>
           <script>
-          function Confirmando(button , status) {
-            let image = button.querySelector('img');
+          function Status( status) {
+            let button = document.getElementById('buttom-confirm');
+            let image = document.getElementById('image');
 
-            if (status === 'pendente') {
-              button.classList.remove('btn-outline-success');
-              button.classList.add('btn-outline-danger');
-              button.disabled = true;
-              image.setAttribute('src', 'img/cancelar.png');
-              image.setAttribute('data-state', 'cancelar');
-            } else if (status === 'entregue') {
+            if (status === 'entregue') {
               button.classList.remove('btn-outline-danger');
               button.classList.add('btn-outline-success');
-              button.disabled = false;
+              button.disabled = true;
               image.setAttribute('src', 'img/confirmar.png');
+              image.setAttribute('data-state', 'cancelar');
+            } else if (status === 'pendente') {
+              button.classList.remove('btn-outline-success');
+              button.classList.add('btn-outline-danger');
+              button.disabled = false;
+              image.setAttribute('src', 'img/cancelar.png');
               image.setAttribute('data-state', 'confirmar');
             }
           }
           </script>
-          <tr>
+          <tr class="confd">
             <td><?php echo $emprestimo['nome'];  ?></td>
             <td><?php echo $emprestimo['livro']; ?></td>
-            <td><?php echo $emprestimo['codigo'];  ?></td>
+            <td><?php echo $emprestimo['codigo_nome'];  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['retirada']));  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
             <td><p class="fw-bold text-capitalize"><?php echo $emprestimo['status'] ?></p> </td>
             <td>
-              <form method="get">
+              <form method="get" action="#?id= <?php echo $emprestimo['id'] ?>">
                 <input type="hidden" name="confirme" value="1">
-                <button type="submit" class="btn btn-outline-success p-0" id="buttom-confirm" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>' )" >
-                  <img style="width: 3rem; height: 2rem;" class="btn" src="img/confirmar.png" alt="icone de confirmação" data-state="confirmar"> 
+                <button type="submit" class="btn btn-outline-danger p-0" id="buttom-confirm" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>' )" >
+                  <img style="width: 3rem; height: 2rem;" class="btn" id="image" src="img/cancelar.png" alt="icone de confirmação" data-state="confirmar"> 
                 </button>
               </form>
             </td>
-
+            <script>
+              Status('<?php echo $emprestimo['status'] ?>')
+            </script>
+            
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -210,7 +208,6 @@ if(isset($_POST['logout'])) {
     <p class="text-capitalize text-lg-center fs-3">Sem historico no momento</p> 
   <?php }?>
   </div>
-  
  <!----------------------------------- footer ------------------------------------->
  <div class="container position-absolute top-100 start-50 translate-middle mt-lg-5">
  <footer class="row  py-5 my-sm-4 border-top">

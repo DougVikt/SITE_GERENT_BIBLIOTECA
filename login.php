@@ -65,23 +65,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <div class="bg-light rounded-4 container w-25 p-5 fs-4 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
         
-        <div class="text-center">
+        <div class="text-center w-75">
         <h2 class="text-center">Faça Login</h2><br>
         <form action="" method="post">
           <div class="mb-3 mt-3 fw-bold">
             <label for="email">Email:</label>
-            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email" name="email">
+            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email" name="email" require>
           </div>
           <div class="mb-3 fw-bold">
             <label for="senha">Senha:</label>
-            <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha">
+            <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha" require>
           </div>
           <br>
           <button type="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Entrar</button>
         </form>
           <a href="cadastrar.php" class="link-primary fs-6">Cadastrar</a>
           <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
-            <a href="index.php" class="btn btn-primary">< Voltar</a>
+            <a href="index.php" class="btn btn-outline-primary">< Voltar</a>
           </div>
         
         </div>

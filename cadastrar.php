@@ -130,34 +130,34 @@ if (isset($_POST['submit'])){
 
 ?>
     <div class="bg-light rounded-4 container w-50 p-5 fs-5 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
-        <div class="text-center w-50">
+        <div class="text-center w-75">
         <h2 class="text-center">Cadastre-se</h2><br>
         <form action="" method="post">
-          <div class="mb-0 mt-3 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="text">Nome:</label>
             <input type="text" class="form-control form-control-sm rounded-5" id="nome" placeholder="Coloque o seu nome" name="nome" required>
           </div>
-          <div class="mb-0 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="email">Email:</label>
             <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="exemplo@hotmail.com" name="email" required title="Coloque um email valido">
           </div>
-          <div class="mb-0 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="cpf">CPF:</label>
             <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11}" maxlength="11" required title="Coloque os 11 numeros do seu CPF ">       
           </div>
-          <div class="mb-0 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="text">Telefone:</label>
             <input type="phone" class="form-control form-control-sm rounded-5" id="tele" placeholder="Coloque seu Telefone" name="tele" pattern="[0-9]{11}" maxlength="11" required>
           </div>
-          <div class="mb-0 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="pwd">Senha:</label>
             <input type="password" minlength="8" title="A senha deve ter no mínimo 8 caracteres" class="form-control form-control-sm rounded-5" id="pwd" placeholder="Crie sua senha " name="pswd" required>
           </div>
-          <div class="mb-0 fw-bold">
+          <div class="mb-1 fw-bold">
             <label for="pwd">Confirme sua Senha:</label>
             <input type="password" class="form-control form-control-sm rounded-5" id="pwd2" placeholder="Repita sua senha " name="pswd2" required>
           </div>
-          <div class="mb-0 fs-6 fst-italic">
+          <div class="mb-1 fs-6 fst-italic">
             <label for="codigo">Código:</label>
             <input type="text" class="form-control form-control-sm rounded-5" id="codg" placeholder="Campo para funcionarios" name="codigo">
           </div>
@@ -166,7 +166,7 @@ if (isset($_POST['submit'])){
           <button type="submit" name="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Cadastrar</button>
         </form>
           <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
-            <a href="index.php" class="btn btn-primary">< Voltar</a>
+            <a href="index.php" class="btn btn-outline-primary">< Voltar</a>
           </div>
         </div>
     </div>

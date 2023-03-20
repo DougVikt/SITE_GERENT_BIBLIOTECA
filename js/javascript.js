@@ -44,6 +44,26 @@ document.getElementById('avaliacao' + idlivro).value = avaliacao;
 
 }
 
+// troca de imagem e estilo do botão ao click
+function Confirmando(button , status) {
+  let image = button.querySelector('img');
+
+  if (status == 'entregue') {
+    button.classList.remove('btn-outline-danger');
+    button.classList.add('btn-outline-success');
+    button.disabled = true;
+    image.setAttribute('src', 'img/confirmar.png');
+    image.setAttribute('data-state', 'cancelar');
+  } else if (status == 'pendente') {
+    button.classList.remove('btn-outline-success');
+    button.classList.add('btn-outline-danger');
+    button.disabled = false;
+    image.setAttribute('src', 'img/cancelar.png');
+    image.setAttribute('data-state', 'confirmar');
+  }
+}
+
+
 /*
 function Confirmando(status){
 

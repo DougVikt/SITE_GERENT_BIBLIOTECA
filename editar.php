@@ -14,10 +14,20 @@
 include('conexao.php');
 session_start();
 
+// selecionado tudo da tabela livros
 $sql = "SELECT * FROM livros where 1 ";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ao apertar 'excluir' , exclui os dados do livro em questão
+if (isset($_POST['excluir'])){
+  $id = $_POST['id'];
+  echo "<script> alert(".$id.") </script>";  
+  $sql = "DELETE FROM livros WHERE id= ?";
+  $stmt= $pdo ->prepare($sql);
+  $stmt->execute([$id]);
+}
 
 
 
@@ -78,6 +88,7 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </nav>
   <br>
   <br>
+  <!----------------------------------- tabela ----------------------------------->
   <?php if (count($livros) > 0){ ?>
 <div class="container-fluid mt-5 ">
     <table class="table text-center  table-hover">
@@ -103,20 +114,71 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['genero'];  ?></td>
             <td><?php echo $livro['codigo'];  ?></td>
             <td>
-              <button class="btn btn-outline-warning border-dark  text-dark fs-6" type="submit" id="editar" >Editar 
-              </button>
-              <button class="btn btn-outline-danger border-dark fs-6" type="submit" id="excluir">Excluir 
-              </button>
+              <button class="btn btn-outline-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal">
+                Editar 
+                </button>
+              <form method="post" action="#">
+                <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
+                <button class="btn btn-outline-danger border-dark fs-6" type="submit" id="excluir">Excluir 
+                </button>
+              </form>
             </td>
           </tr>
         <?php endforeach; ?>
+        
       </tbody>
     </table>
     <?php }else { ?>
     <p class="text-capitalize text-lg-center fs-3">Sem livros no acervo</p> 
   <?php }?>
   </div>
-   
+
+<!------------------ Modal --------------------------->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Título do modal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
+          <div class="mb-3">
+            <label for="titulo">Título:</label>
+            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" required>
+          </div>
+          <div class="mb-3">
+            <label for="autor">Autor:</label>
+            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" required>
+          </div>
+          <div class="mb-3">
+            <label for="editora">Editora:</label>
+            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" required>
+          </div>
+          <div class="mb-3">
+            <label for="ano">Ano de Publicação:</label>
+            <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" required>
+          </div>
+          <div class="mb-3">
+            <label for="genero">Gênero:</label>
+            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero" required>
+          </div>
+          <div class="mb-3">
+            <label for="capa">Capa:</label>
+            <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>
+
  <!----------------------------------- footer ------------------------------------->
  <div class="container">
  <footer class="row  py-5 my-sm-4 border-top">
