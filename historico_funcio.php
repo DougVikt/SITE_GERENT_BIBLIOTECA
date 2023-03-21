@@ -50,9 +50,10 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-if (isset($_GET['confirme']) && $_GET['confirme'] === "1" && isset($_GET['id'])) {
+if ($_POST['confirme'] === "1" && isset($_POST['confirme']) ) {
   
-  $id = $_GET['id'];
+  $id = $_POST['id'];
+  
   $sql = "UPDATE emprestimo SET status = 'entregue' WHERE id = ?";
   $exec = $pdo->prepare($sql);
   $exec->execute([$id]);
@@ -189,7 +190,8 @@ if(isset($_POST['logout'])) {
             <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
             <td><p class="fw-bold text-capitalize"><?php echo $emprestimo['status'] ?></p> </td>
             <td>
-              <form method="get" action="#?id= <?php echo $emprestimo['id'] ?>">
+              <form method="post" action="#?id= <?php echo $emprestimo['id'] ?>">
+                <input type="hidden" name="id" value="<?php echo $emprestimo['id'] ?>">
                 <input type="hidden" name="confirme" value="1">
                 <button type="submit" class="btn btn-outline-danger p-0" id="buttom-confirm" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>' )" >
                   <img style="width: 3rem; height: 2rem;" class="btn" id="image" src="img/cancelar.png" alt="icone de confirmação" data-state="confirmar"> 
@@ -199,7 +201,7 @@ if(isset($_POST['logout'])) {
             <script>
               Status('<?php echo $emprestimo['status'] ?>')
             </script>
-            
+         
           </tr>
         <?php endforeach; ?>
       </tbody>

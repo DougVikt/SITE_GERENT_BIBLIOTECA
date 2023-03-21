@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
   // caso os testes acima derem falso , sera executado
   if($controle_erro){
-    $sql = "INSERT INTO emprestimo (usuario, livro, codigo, retirada, devolucao) VALUES (:nome, :titulo, :codigo, :retirada, :devolucao)";
+    $sql = "INSERT INTO emprestimo (usuario, livro, codigo, retirada, devolucao , status ) VALUES (:nome, :titulo, :codigo, :retirada, :devolucao , 'pendente')";
   // enviando os dados para o banco 
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':nome', $idUsuario);
