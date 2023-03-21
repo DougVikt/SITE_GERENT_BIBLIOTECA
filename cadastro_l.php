@@ -106,7 +106,7 @@ session_start();
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerenciamento
                 </a> 
-                <ul class="dropdown-menu ">
+                <ul class="dropdown-menu " onclick="Setas()">
                   <li class=" dropdown-item">
                     <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
                   </li>

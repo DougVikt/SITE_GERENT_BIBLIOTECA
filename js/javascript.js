@@ -107,3 +107,4 @@ function Confirmando(status){
     elementosLinha.forEach(elemento => elemento.disabled = true);
   }
   */
+ 
