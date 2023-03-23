@@ -20,7 +20,7 @@ $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome
 FROM emprestimo 
 INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
 INNER JOIN livros ON emprestimo.codigo = livros.id 
-ORDER BY emprestimo.retirada asc;
+ORDER BY emprestimo.status desc;
 ";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -43,7 +43,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id
-  ORDER BY emprestimo.retirada asc;
+  ORDER BY emprestimo.status desc;
   ";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
