@@ -138,10 +138,8 @@ if (isset($_POST['excluir'])){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Título do modal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title fw-bold fs-4" id="myModalLabel">Editar Livro</h5>
+        <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">

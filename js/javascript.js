@@ -45,15 +45,25 @@ document.getElementById('avaliacao' + idlivro).value = avaliacao;
 }
 
 // troca de imagem e estilo do botão ao click
-function Confirmando(button) {
-  
-  let image = button.querySelector('img');
-  button.classList.remove('btn-outline-danger');
-  button.classList.add('btn-outline-success');
-  button.disabled = true;
-  image.setAttribute('src', 'img/confirmar.png');
-  image.setAttribute('data-state', 'cancelar');
+function Confirmando(button , status) {
 
+  let image = button.querySelector('img');
+  if (status === 'pendente'){
+    button.classList.remove('btn-outline-danger');
+    button.classList.add('btn-outline-success');
+    button.disabled = true;
+    image.setAttribute('src', 'img/confirmar.png');
+    image.setAttribute('data-state', 'cancelar');
+  }else{
+    button.classList.remove('btn-outline-success');
+    button.classList.add('btn-outline-danger');
+    button.disabled = false;
+    image.setAttribute('src', 'img/cancelar.png');
+    image.setAttribute('data-state', 'confirmar');
+  }
+  // Submete o formulário manualmente
+  let form = button.closest('form');
+  form.submit();
 }
 
 

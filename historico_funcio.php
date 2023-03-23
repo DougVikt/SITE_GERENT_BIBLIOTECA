@@ -50,7 +50,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-if ($_POST['confirme'] === "1" && isset($_POST['confirme']) ) {
+if (isset($_POST['confirme']) && $_POST['confirme'] == 1 && isset($_POST['id']) ) {
   
   $id = $_POST['id'];
   
@@ -163,45 +163,48 @@ if(isset($_POST['logout'])) {
       <tbody >
         <?php foreach ($emprestimos as $emprestimo):?>
           <script>
-          function Status( status) {
-            let button = document.getElementById('buttom-confirm');
-            let image = document.getElementById('image');
+            function Status(status, id) {
+              let button = document.getElementById(`buttom-confirm-${id}`);
+              let image = document.getElementById(`image-${id}`);
+              let text = document.getElementById(`text-status-${id}`);
 
-            if (status === 'entregue') {
-              button.classList.remove('btn-outline-danger');
-              button.classList.add('btn-outline-success');
-              button.disabled = true;
-              image.setAttribute('src', 'img/confirmar.png');
-              image.setAttribute('data-state', 'cancelar');
-            } else if (status === 'pendente') {
-              button.classList.remove('btn-outline-success');
-              button.classList.add('btn-outline-danger');
-              button.disabled = false;
-              image.setAttribute('src', 'img/cancelar.png');
-              image.setAttribute('data-state', 'confirmar');
+              if (status === 'entregue') {
+                button.classList.remove('btn-outline-danger');
+                button.classList.add('btn-outline-success');
+                button.disabled = true;
+                image.setAttribute('src', 'img/confirmar.png');
+                image.setAttribute('data-state', 'cancelar');
+                text.classList.remove('fw-bold');
+              } else if (status === 'pendente') {
+                button.classList.remove('btn-outline-success');
+                button.classList.add('btn-outline-danger');
+                button.disabled = false;
+                image.setAttribute('src', 'img/cancelar.png');
+                image.setAttribute('data-state', 'confirmar');
+                
+              }
             }
-          }
           </script>
-          <tr class="confd">
+          <tr <?php if ($emprestimo['status'] === 'entregue') {echo 'class="table-secondary"';} ?>>
             <td><?php echo $emprestimo['nome'];  ?></td>
             <td><?php echo $emprestimo['livro']; ?></td>
             <td><?php echo $emprestimo['codigo_nome'];  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['retirada']));  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
-            <td><p class="fw-bold text-capitalize"><?php echo $emprestimo['status'] ?></p> </td>
+            <td><p class="fw-bold text-capitalize" id="text-status-<?php echo $emprestimo['id'] ?>"><?php echo $emprestimo['status'] ?></p> </td>
             <td>
-              <form method="post" action="#?id= <?php echo $emprestimo['id'] ?>">
+              <form method="post" action="#">
                 <input type="hidden" name="id" value="<?php echo $emprestimo['id'] ?>">
                 <input type="hidden" name="confirme" value="1">
-                <button type="submit" class="btn btn-outline-danger p-0" id="buttom-confirm" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>' )" >
-                  <img style="width: 3rem; height: 2rem;" class="btn" id="image" src="img/cancelar.png" alt="icone de confirmação" data-state="confirmar"> 
+                <button class="btn btn-outline-danger p-0" id="buttom-confirm-<?php echo $emprestimo['id'] ?>" onclick="Confirmando(this , '<?php echo $emprestimo['status'] ?>')" >
+                  <img style="width: 3rem; height: 2rem;" class="btn" id="image-<?php echo $emprestimo['id'] ?>" src="img/cancelar.png" alt="icone de confirmação" data-state="confirmar"> 
                 </button>
               </form>
+              <script>
+                Status('<?php echo $emprestimo['status'] ?>', 
+                <?php echo $emprestimo['id'] ?>);
+              </script>
             </td>
-            <script>
-              Status('<?php echo $emprestimo['status'] ?>')
-            </script>
-         
           </tr>
         <?php endforeach; ?>
       </tbody>
