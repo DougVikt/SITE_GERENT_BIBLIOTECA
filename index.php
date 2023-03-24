@@ -92,13 +92,16 @@ if(isset($_POST['logout'])) {
                 </a> 
                 <ul class="dropdown-menu ">
                   <li class=" dropdown-item">
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastrar.php">Cadastrar Usuário</a>
+                  </li>
+                  <li class=" dropdown-item">
                     <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastro_l.php">Cadastrar Livros</a>
                   </li>
                   <li class="dropdown-item">
                     <a id="link-funcionario" class="nav-link nav-link active fs-5" href="editar.php">Editar livros</a>
                   </li>
                   <li class="dropdown-item">
-                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Emprestimo</a>
+                    <a id="link-funcionario" class="nav-link nav-link active fs-5" href="emprestimo.php">Empréstimo</a>
                   </li>
                 </ul>
               </li>
