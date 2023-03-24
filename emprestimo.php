@@ -20,7 +20,6 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nome = $_POST['nome'];
   $titulo = $_POST['titulo'];
-  $codigo = $_POST['codigo'];
   $retirada = $_POST['retirada'];
   $devolucao = $_POST['devolucao'];
   
@@ -36,25 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controle_erro = false;
   }
   
-  // caso o codigo não esteja cadastrado
-  $stmt = $pdo->prepare("SELECT id FROM livros WHERE codigo = ?");
-  $stmt->execute([$codigo]);
-  $idcodigo = $stmt->fetchColumn();
-  if (!$idcodigo) {
-    echo "<script> alert('codigo não cadastrado.');</script>";
+  //obtendo o codigo de acordo com o nome , não estando na tabela emprestimo com o status pendente
+  $sql1 = "SELECT id FROM livros WHERE titulo=? and id not IN (SELECT codigo FROM emprestimo WHERE status='pendente')";
+  $stmt2 = $pdo->prepare($sql1);
+  $stmt2->execute([$nome]);
+  $codigo = $stmt2->fetchAll();
+  // caso não tenha nem um codigo no banco
+  if (!$codigo){
+    echo "<script> alert ('Livro Indisponivel !')</script>";
     $controle_erro = false;
   }
 
-  // Verifica se o nome do livro se refere ao código passado 
-  $stmt = $pdo->prepare("SELECT id FROM livros WHERE titulo = ? AND codigo = ?");
-  $stmt->execute([$titulo, $codigo]);
-  $registro = $stmt->fetch();
-  // caso o nome do livro não bata com o codigo passado 
-  if (!$registro) {
-    echo "<script>alert('Este nome de livro não bate com o codigo passado');</script>";
-    $controle_erro = false;
-  } 
-   
+
   // caso os testes acima derem falso , sera executado
   if($controle_erro){
     $sql = "INSERT INTO emprestimo (usuario, livro, codigo, retirada, devolucao , status ) VALUES (:nome, :titulo, :codigo, :retirada, :devolucao , 'pendente')";
@@ -62,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':nome', $idUsuario);
     $stmt->bindValue(':titulo', $titulo);
-    $stmt->bindValue(':codigo', $idcodigo);
+    $stmt->bindValue(':codigo', $codigo[0][0]);
     $stmt->bindValue(':retirada', $retirada);
     $stmt->bindValue(':devolucao', $devolucao);
 
@@ -145,7 +137,7 @@ if(isset($_POST['logout'])) {
   <br>
   <br>
   <!--------------------------------- formulario de emprestimo ------------------------------------------->
-  <div class="container-fluid mt-3 w-75 d-flex flex-column ">
+  <div class="container-fluid mt-3 w-75 flex-column ">
     <h2 class="mb-3 text-center">Emprestimo</h2>
     <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
@@ -155,10 +147,6 @@ if(isset($_POST['logout'])) {
       <div class="mb-3">
         <label for="nome-livro">Tìtulo do livro:</label>
         <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
-      </div>
-      <div class="mb-3">
-        <label for="codigo-livro">Código:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="codigo" name="codigo" pattern="[A-Z0-9]+" maxlength="18" title="Coloque um codigo valido , com letras maiusculas e numeros ">
       </div>
       <div class="mb-3">
         <label for="data-emprestimo">Data da Retirada:</label>
