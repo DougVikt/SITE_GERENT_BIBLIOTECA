@@ -106,7 +106,7 @@ session_start();
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerenciamento
                 </a> 
-                <ul class="dropdown-menu " onclick="Setas()">
+                <ul class="dropdown-menu " >
                   <li class=" dropdown-item">
                     <a id="link-funcionario" class="nav-link nav-link active fs-5" href="cadastrar.php">Cadastrar Usuário</a>
                   </li>
@@ -163,7 +163,7 @@ session_start();
   
    
  <!----------------------------------- footer ------------------------------------->
- <div class="container">
+ <div class="container-fluid divi-card ">
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">

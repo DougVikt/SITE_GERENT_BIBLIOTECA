@@ -181,7 +181,7 @@ if (isset($_POST['excluir'])){
 </div>
 
  <!----------------------------------- footer ------------------------------------->
- <div class="container">
+ <div class="container-fluid divi-card ">
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">

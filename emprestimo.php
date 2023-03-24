@@ -145,7 +145,7 @@ if(isset($_POST['logout'])) {
   <br>
   <br>
   <!--------------------------------- formulario de emprestimo ------------------------------------------->
-  <div class="container mt-3 w-75 d-flex flex-column ">
+  <div class="container-fluid mt-3 w-75 d-flex flex-column ">
     <h2 class="mb-3 text-center">Emprestimo</h2>
     <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
@@ -173,7 +173,7 @@ if(isset($_POST['logout'])) {
   </div>
   
  <!----------------------------------- footer ------------------------------------->
- <div class="container position-absolute top-100 start-50 translate-middle mt-lg-5">
+ <div class="container-fluid divi-card ">
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">

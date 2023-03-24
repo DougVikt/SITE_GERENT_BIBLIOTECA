@@ -208,7 +208,7 @@ if(isset($_POST['logout'])) {
 
  
  <!----------------------------------- footer ------------------------------------->
- <div class="container">
+ <div class="container-fluid divi-card ">
 
  <footer class=" w-100 row py-5 my-sm-4 border-top bottom-0">
     <div class="col mb-3">

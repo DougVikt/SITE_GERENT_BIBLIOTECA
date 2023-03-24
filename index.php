@@ -123,6 +123,7 @@ if(isset($_POST['logout'])) {
   </div>
 
   <!-------------------------------- cards carrossel ------------------------------------------------->
+<div class="containeri-fluid">
   <div id="meuCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -252,9 +253,9 @@ if(isset($_POST['logout'])) {
       <span class="sr-only"></span>
     </a>
   </div>
-  
+</div>
  <!----------------------------------- footer ------------------------------------->
- <div class="container">
+ <div class="container-fluid divi-card">
   <footer class="row py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
