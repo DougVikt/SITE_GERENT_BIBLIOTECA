@@ -6,8 +6,8 @@
   
   # TECNOLOGIAS USADAS :
   
-  ° HTML
-  ° CSS
+  ° HTML<br>
+  ° CSS<br>
   ° JAVASCRIPT
   ° PHP
   ° FRAMEWORKS
@@ -29,4 +29,5 @@
     
   # CONTRIBUIÇÃO :
     
-    Sinta-se à vontade para contribuir com o projeto, seja reportando bugs, indicando novas funcionalidades ou melhorias no código existente. 
+    Sinta-se à vontade para contribuir com o projeto, seja reportando bugs, 
+    indicando novas funcionalidades ou melhorias no código existente. 
