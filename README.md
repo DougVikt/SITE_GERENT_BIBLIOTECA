@@ -3,15 +3,15 @@
   Site de gerenciamento de emprestimos de livros de uma biblioteca fisica , onde tem as funcionalidades do funcionario e do usuario .
   Esta em desenvolvimento , e pode ter alterações futuras , no entanto ja esta com as principais funções 
   
-  <pre>
+  
   # TECNOLOGIAS USADAS :
   
-  ° HTML<br>
-  ° CSS<br>
-  ° JAVASCRIPT<br>
-  ° PHP<br>
-  ° FRAMEWORKS<br>
-    =BOOTSTRAP <br>
+  + HTML<br>
+  + CSS<br>
+  + JAVASCRIPT<br>
+  + PHP<br>
+  + FRAMEWORKS<br>
+   - BOOTSTRAP <br>
     
   # FUNCIONALIDADES :
   
@@ -28,7 +28,6 @@
     ¬ Avaliar cada livro de seu historico <br>
     
   # CONTRIBUIÇÃO :
-    
-    Sinta-se à vontade para contribuir com o projeto, seja reportando bugs, 
+   
+   Sinta-se à vontade para contribuir com o projeto, seja reportando bugs, 
     indicando novas funcionalidades ou melhorias no código existente. 
-</pre>
