@@ -24,8 +24,3 @@
     padding:20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.img-pulsar:hover {
-    transform: scale(2.2);
-    transition: transform 0.3s ease-in-out;
-  }
-  
