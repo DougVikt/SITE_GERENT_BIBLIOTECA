@@ -11,7 +11,7 @@
 </head>
 <body>
  
-<main>
+<main  class="flex-grow-1">
 <?php
 include 'conexao.php';
 session_start(); 
@@ -48,7 +48,7 @@ if(isset($_POST['logout'])) {
 }
 ?>
   <!-------------------------------------- inicio do navbar ------------------------------>
-  <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
+  <nav class="navbar bg-info fixed-top " aria-label="Offcanvas navbar large">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
@@ -210,33 +210,45 @@ if(isset($_POST['logout'])) {
             <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
           </div>
           <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="mx-auto">
+            <div class="mx-auto">
               <div class="col h-100">
                 <div class="card shadow h-100 rounded-5">
+                   <?php if (!empty($livro_ava['0'])){ ?>
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['0']['titulo'] ?></p>
                     </div>
+                    <?php } else { ?>
+                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                    <?php } ?>
                 </div>
               </div>
             </div>
             <div class="mx-auto">
               <div class="col h-100">
                 <div class="card shadow h-100 rounded-5">
+                <?php if (!empty($livro_ava['1'])){ ?>
                     <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['1']['titulo'] ?></p>
                     </div>
+                    <?php } else { ?>
+                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                    <?php } ?>
                 </div>
               </div>
             </div>
             <div class="mx-auto">
               <div class="col h-100">
                 <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                <?php if (!empty($livro_ava['2'])){ ?>
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" />
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['2']['titulo'] ?></p>
                     </div>
+                    <?php } else { ?>
+                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                    <?php } ?>
                 </div>
               </div>
             </div>
@@ -255,8 +267,8 @@ if(isset($_POST['logout'])) {
   </div>
 </div>
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card">
-  <footer class="row py-5 my-sm-4 border-top">
+ <div class="container-fluid divi-card w-100 h-100 ">
+  <footer class="row py-5 my-sm-4 border-top ">
     <div class="col mb-3">
       <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
@@ -285,9 +297,10 @@ if(isset($_POST['logout'])) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
  <!--------- função pos logado ----------->
- <script> verificarLogado( 
+ <script> 
+ verificarLogado( 
   <?php echo json_encode( $_SESSION['logado']); ?>,
-  <?php echo json_encode($_SESSION['nome']) ;?> ,
+  <?php echo json_encode($_SESSION['nome']) ;?>,
   <?php echo json_encode($_SESSION['user_type']);?>
   )
    

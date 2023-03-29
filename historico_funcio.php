@@ -138,7 +138,7 @@ if(isset($_POST['logout'])) {
             <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
         </a>
 
-        <div class="col-md-4 col-lg-3 mb-3 mb-lg-0 ms-auto me-lg-3">
+        <div class="col-md-4 col-lg-3 col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
             <form class="d-flex" role="search">
             <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
             </form>

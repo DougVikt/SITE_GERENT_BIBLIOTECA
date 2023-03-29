@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
             <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
         </a>
 
-        <div class="col-1 col-lg-auto mb-3 mb-lg-0 ms-auto me-lg-3">
+        <div class="col-1 col-lg-auto col-sm-6 mb-3 mb-lg-0 ms-auto me-lg-3">
             <form class="d-flex" role="search">
             <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Procuro o livro..." aria-label="Procurar">
             </form>
@@ -225,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
   <?php }?>
 </div> 
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card mt-3 fixed-bottom">
+ <div class="container-fluid divi-card mt-3 fixed-bottom ">
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
