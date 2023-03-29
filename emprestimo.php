@@ -77,7 +77,7 @@ if(isset($_POST['logout'])) {
 ?>
 
  
-<main>
+<main class="flex-grow-1">
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
@@ -137,7 +137,7 @@ if(isset($_POST['logout'])) {
   <br>
   <br>
   <!--------------------------------- formulario de emprestimo ------------------------------------------->
-  <div class="container-fluid mt-3 w-75 flex-column ">
+  <div class="container-fluid mt-3 w-75 ">
     <h2 class="mb-3 text-center">Emprestimo</h2>
     <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
@@ -159,7 +159,8 @@ if(isset($_POST['logout'])) {
       <button type="submit" class="btn btn-info">Cadastrar</button>
     </form>
   </div>
-  
+
+</main>  
  <!----------------------------------- footer ------------------------------------->
  <div class="container-fluid divi-card ">
  <footer class="row  py-5 my-sm-4 border-top">
@@ -183,7 +184,7 @@ if(isset($_POST['logout'])) {
 
   </footer>
  </div>
-</main> 
+ 
 <!----------------------- scripts --------------------------->
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>

@@ -68,7 +68,7 @@ if(isset($_POST['logout'])) {
 } 
 ?>
  
-<main>
+<main  class="flex-grow-1">
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
