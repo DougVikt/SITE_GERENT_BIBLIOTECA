@@ -15,28 +15,29 @@
 include 'conexao.php';
 session_start();
 
-// consulta no banco de dados caso nada colsultado
-$sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome 
-FROM emprestimo 
-INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
-INNER JOIN livros ON emprestimo.codigo = livros.id 
-ORDER BY emprestimo.status desc;
-";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
   // pesquisando
 if (isset($_GET['p']) && !empty($_GET['p'])) {
   $p = $_GET['p'];
-  $sql = "SELECT e.*, u.nome, l.codigo FROM emprestimo e
-          INNER JOIN usuarios u ON e.usuario = u.id
-          INNER JOIN livros l ON e.livro = l.id
-          WHERE u.nome LIKE '%$p%' OR l.titulo LIKE '%$p%' OR e.codigo LIKE '%$p%'";
+
+  if (($retirada = strtotime($p)) !== false) {
+    $retirada = date('Y/m/d', $retirada);
+    $devolucao = $retirada;
+  } else {
+    $retirada = '%';
+    $devolucao = '%';
+  }
+
+  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome FROM emprestimo 
+  INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
+  INNER JOIN livros ON emprestimo.codigo = livros.id 
+  WHERE nome LIKE '%$p%' OR titulo LIKE '%$p%' OR status LIKE '%$p%' 
+  OR retirada LIKE '$retirada' OR devolucao LIKE '$devolucao'";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
-  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  
 } elseif(empty($_GET['p'])) {
    // consulta no banco de dados caso nada colsultado
   $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome
@@ -48,8 +49,11 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $p = null;
 }
 
+// trocando o status 
 if (isset($_POST['confirme']) && $_POST['confirme'] == 1 && isset($_POST['id']) ) {
   
   $id = $_POST['id'];
@@ -67,7 +71,7 @@ if(isset($_POST['logout'])) {
   header('Location: index.php');
 } 
 ?>
- 
+
 <main  class="flex-grow-1">
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
@@ -139,17 +143,16 @@ if(isset($_POST['logout'])) {
         </a>
 
         <div class="col-md-4 col-lg-3 col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
-            <form class="d-flex" role="search">
-            <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
+            <form class="d-flex" role="search" method="get" action="#">
+            <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $p; ?>">
             </form>
         </div>
-        
-
-</div>
+        </div>
+    </div>
 </header>
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
 <?php if (count($emprestimos) > 0){ ?>
-<div class="container-fluid">
+<div class="container-fluid mx-0 text-center" style="height: 30rem;">
     <table class="table table-hover text-center">
       <thead>
         <tr class="table-primary">
@@ -213,19 +216,21 @@ if(isset($_POST['logout'])) {
       </tbody>
     </table>
     <?php }else { ?>
-    <p class="text-capitalize text-lg-center fs-3">Sem historico no momento</p> 
-  <?php }?>
+      <div class="container-fluid"style="height: 20rem;">
+        <p class="text-capitalize text-lg-center fs-3 " >Sem historico no momento</p> 
+      </div>
+     <?php }?>
   </div>
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card ">
- <footer class="row  py-5 my-sm-4 border-top">
+ <div class="container-fluid d-flex divi-card">
+  <footer class="row flex-fill py-5 my-sm-4 border-top">
     <div class="col mb-3">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+      <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
       </a>
     </div>
 
-    <div class=" mb-5 mx-4">
+    <div class=" mb-5 mx-0">
       
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
@@ -237,8 +242,8 @@ if(isset($_POST['logout'])) {
 
     
 
-  </footer>
-   </div>
+    </footer>
+  </div>
 </main> 
     <script src="js/javascript.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

@@ -91,9 +91,10 @@ if (isset($_POST['excluir'])){
   </nav>
   <br>
   <br>
+  <?php echo $id ?>
   <!----------------------------------- tabela ----------------------------------->
   <?php if (count($livros) > 0){ ?>
-<div class="container-fluid mt-5 ">
+<div class="container-fluid mt-5 pb-3"  >
     <table class="table text-center  table-hover">
       <thead>
         <tr class="table-primary">
@@ -117,12 +118,12 @@ if (isset($_POST['excluir'])){
             <td><?php echo $livro['genero'];  ?></td>
             <td><?php echo $livro['codigo'];  ?></td>
             <td>
-              <button class="btn btn-outline-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal">
+              <button class="btn btn-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal">
                 Editar 
                 </button>
               <form method="post" action="#">
                 <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <button class="btn btn-outline-danger border-dark fs-6" type="submit" id="excluir">Excluir 
+                <button class="btn btn-danger border-dark fs-6" type="submit" id="excluir">Excluir 
                 </button>
               </form>
             </td>
@@ -181,7 +182,7 @@ if (isset($_POST['excluir'])){
 </div>
 
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card ">
+ <div class="container-fluid divi-card" style="height: 20rem;">
  <footer class="row  py-5 my-sm-4 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">

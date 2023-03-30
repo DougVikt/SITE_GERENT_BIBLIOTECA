@@ -1,7 +1,7 @@
 
 function verificarLogado(logado , nomeUsuario ,user_type) {
   
-  if (logado === null || nomeUsuario === null  || user_type === null ) {
+  
   const link = document.getElementById('historico');
   if (logado) {
     // usuário está logado, então esconder botões de login e cadastro
@@ -21,7 +21,7 @@ function verificarLogado(logado , nomeUsuario ,user_type) {
     // esconder nome do usuário logado
     document.getElementById('usuarioLogado').innerHTML = '';
   }
-}
+
   
 }
 
