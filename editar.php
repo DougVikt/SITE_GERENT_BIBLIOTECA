@@ -23,10 +23,12 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // ao apertar 'excluir' , exclui os dados do livro em questão
 if (isset($_POST['excluir'])){
   $id = $_POST['id'];
-  echo "<script> alert(".$id.") </script>";  
-  $sql = "DELETE FROM livros WHERE id= ?";
+    
+  $sql = "DELETE FROM avaliacoes WHERE id_livro = :id ; DELETE FROM livros WHERE id= :id ";
   $stmt= $pdo ->prepare($sql);
-  $stmt->execute([$id]);
+  $stmt->execute([':id'=>$id]);
+
+  header('Location: editar.php');
 }
 
 
@@ -103,7 +105,6 @@ if (isset($_POST['excluir'])){
           <th>Editora</th>
           <th>Ano</th>
           <th>Genero</th>
-          <th>Codigo</th>
           <th></th>
         </tr>
       </thead>
@@ -116,15 +117,13 @@ if (isset($_POST['excluir'])){
             <td><?php echo $livro['editora'];  ?></td>
             <td><?php echo $livro['ano'];  ?></td>
             <td><?php echo $livro['genero'];  ?></td>
-            <td><?php echo $livro['codigo'];  ?></td>
             <td>
               <button class="btn btn-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal">
                 Editar 
                 </button>
               <form method="post" action="#">
                 <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <button class="btn btn-danger border-dark fs-6" type="submit" id="excluir">Excluir 
-                </button>
+                <button class="btn btn-danger border-dark fs-6" type="submit" name="excluir" id="excluir">Excluir </button>
               </form>
             </td>
           </tr>

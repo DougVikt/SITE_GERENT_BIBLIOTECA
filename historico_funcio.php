@@ -17,21 +17,26 @@ session_start();
 
   // pesquisando
 if (isset($_GET['p']) && !empty($_GET['p'])) {
-  $p = $_GET['p'];
 
-  if (($retirada = strtotime($p)) !== false) {
-    $retirada = date('Y/m/d', $retirada);
-    $devolucao = $retirada;
+  $p = $_GET['p'];
+  
+  if (preg_match('/^\d{2}\/\d{2}$/', $p)) {
+    $data_parts = explode('/', $p);
+    $data_inicial = date_create_from_format('d/m', $p);
+    if ($data_inicial !== false) {
+      $data_inicial = $data_inicial->format('Y-m-d');
+      $data_final = str_replace("/","-", $data_inicial);
+      
+    }
   } else {
-    $retirada = '%';
-    $devolucao = '%';
+    $data_final = '';
   }
 
   $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id 
-  WHERE nome LIKE '%$p%' OR titulo LIKE '%$p%' OR status LIKE '%$p%' 
-  OR retirada LIKE '$retirada' OR devolucao LIKE '$devolucao'";
+  WHERE nome LIKE '$p' OR livro LIKE '$p' OR status LIKE '$p' 
+  OR retirada LIKE '$data_final' OR devolucao LIKE '$data_final'";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -44,8 +49,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id
-  ORDER BY emprestimo.status desc;
-  ";
+  ORDER BY emprestimo.status desc";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
   $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -143,13 +147,14 @@ if(isset($_POST['logout'])) {
         </a>
 
         <div class="col-md-4 col-lg-3 col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
-            <form class="d-flex" role="search" method="get" action="#">
+          <form class="d-flex" role="search" method="get" action="#">
             <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $p; ?>">
-            </form>
+          </form>
         </div>
         </div>
     </div>
 </header>
+
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
 <?php if (count($emprestimos) > 0){ ?>
 <div class="container-fluid mx-0 text-center" style="height: 30rem;">

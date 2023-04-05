@@ -22,18 +22,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
 }
 
 
-// Consulta no banco de dados
-$sql = "SELECT livros.*, COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
-FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro GROUP BY livros.id";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-
 if (isset($_GET['q']) && !empty($_GET['q'])) {
   $q = $_GET['q'];
-  $sql = "SELECT * FROM livros WHERE titulo LIKE '%$q%' OR autor LIKE '%$q%' OR editora LIKE '%$q%' OR ano LIKE '%$q%'";
+  $sql = "SELECT * FROM livros WHERE titulo LIKE '%$q%' OR autor LIKE '%$q%' OR editora LIKE '%$q%' OR ano LIKE '%$q%' OR genero LIKE '%$q%'";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -46,6 +37,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
   $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $q = null;
 }
 if(isset($_POST['logout'])) {
   // Destrói a sessão
@@ -131,12 +123,13 @@ if(isset($_POST['logout'])) {
 
         <div class="col-1 col-lg-auto col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
           <form class="d-flex" role="search"  method="GET">
-            <input type="search" name="q" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar">
+            <input type="search" name="q" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $q ?>">
           </form>
         </div>
       </div>
     </div>
   </header>
+  <!----------------------------------------- acervo ----------------------------------------------------------------->
   <div class="container-fluid h-100 mt-3">
     <div class="row">
       <?php foreach($livros as $livro): ?>
