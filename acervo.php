@@ -138,20 +138,15 @@ if(isset($_POST['logout'])) {
             <img class="img-fluid card-img-top border border-4 border-light rounded-4" style="width: 30rem; height: 25rem;" src="<?php echo $livro['capa']; ?>" alt="Capa do livro">
             <div class="card-body text-center">
               <a class="p-0" href="javascript:void(0)" >
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e1' . $livro['id']; ?>">
-              </a>
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e1' . $livro['id']; ?>"></a>
               <a class="p-0" href="javascript:void(0)" >
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e2' . $livro['id']; ?>">
-              </a>
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e2' . $livro['id']; ?>"></a>
               <a class="p-0" href="javascript:void(0)" >
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e3' . $livro['id']; ?>">
-              </a>
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e3' . $livro['id']; ?>"></a>
               <a class="p-0" href="javascript:void(0)" >
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e4' . $livro['id']; ?>">
-              </a>
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e4' . $livro['id']; ?>"></a>
               <a class="p-0" href="javascript:void(0)" >
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e5' . $livro['id']; ?>">
-              </a>
+                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 'e5' . $livro['id']; ?>"></a>
               <div class="dropdown">
                 <h5 class="card-title text-capitalize fw-bold   fs-6" ><?php echo $livro['titulo']; ?></h5>
                 <button class="dropdown-toggle bt-card rounded-4 btn btn-outline-secondary fs-6 fw-bold"type="button" data-bs-toggle="dropdown" aria-expanded="false" >MAIS</button>

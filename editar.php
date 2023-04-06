@@ -24,15 +24,53 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (isset($_POST['excluir'])){
   $id = $_POST['id'];
     
-  $sql = "DELETE FROM avaliacoes WHERE id_livro = :id ; DELETE FROM livros WHERE id= :id ";
-  $stmt= $pdo ->prepare($sql);
-  $stmt->execute([':id'=>$id]);
+  $sqld = "DELETE FROM avaliacoes WHERE id_livro = :id ; DELETE FROM livros WHERE id= :id ";
+  $stmtd= $pdo ->prepare($sqld);
+  $stmtd->execute([':id'=>$id]);
 
   header('Location: editar.php');
 }
 
+// editando os livros
 
+if (isset($_POST['salvar'])) {
+  $id = $_POST['id-editar'];
+  $titulo = !empty($_POST['titulo']) ? $_POST['titulo'] : null;
+  $autor = !empty($_POST['autor']) ? $_POST['autor'] : null;
+  $editora = !empty($_POST['editora']) ? $_POST['editora'] : null;
+  $ano = !empty($_POST['ano']) ? $_POST['ano'] : null;
+  $genero = !empty($_POST['genero']) ? $_POST['genero'] : null;
 
+  if (!empty($_FILES['capa']['name'])) {
+      $capa_nome = $_FILES['capa']['name'];
+      $capa_tam = $_FILES['capa']['tmp_name'];
+      $destino = 'banco/' . $capa_nome;
+      move_uploaded_file($capa_tam, $destino);
+  } else {
+      $destino = null;
+  }
+
+  $sql1 = "UPDATE livros SET 
+  titulo = COALESCE(:titulo, titulo),
+  autor = COALESCE(:autor, autor),
+  editora = COALESCE(:editora, editora),
+  ano = COALESCE(:ano, ano),
+  genero = COALESCE(:genero, genero),
+  capa = COALESCE(:capa, capa)
+  WHERE id = :id";
+
+  $stmt1 = $pdo->prepare($sql1);
+  $stmt1->execute([
+      ':id' => $id,
+      ':titulo' => $titulo,
+      ':autor' => $autor,
+      ':editora' => $editora,
+      ':ano' => $ano,
+      ':genero' => $genero,
+      ':capa' => $destino
+  ]);
+  header('Location: editar.php');
+}
 ?>
 <body>
      <!-------------------------------------- inicio do navbar ------------------------------>
@@ -93,7 +131,7 @@ if (isset($_POST['excluir'])){
   </nav>
   <br>
   <br>
-  <?php echo $id ?>
+
   <!----------------------------------- tabela ----------------------------------->
   <?php if (count($livros) > 0){ ?>
 <div class="container-fluid mt-5 pb-3"  >
@@ -117,8 +155,8 @@ if (isset($_POST['excluir'])){
             <td><?php echo $livro['editora'];  ?></td>
             <td><?php echo $livro['ano'];  ?></td>
             <td><?php echo $livro['genero'];  ?></td>
-            <td>
-              <button class="btn btn-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal">
+            <td> 
+              <button class="btn btn-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal-<?php echo $livro['id'] ?>" >
                 Editar 
                 </button>
               <form method="post" action="#">
@@ -126,9 +164,52 @@ if (isset($_POST['excluir'])){
                 <button class="btn btn-danger border-dark fs-6" type="submit" name="excluir" id="excluir">Excluir </button>
               </form>
             </td>
-          </tr>
+          </tr>  
+<!------------------ Modal --------------------------->
+          <div class="modal fade" id="myModal-<?php echo $livro['id'] ?>" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fw-bold fs-4" id="myModalLabel">Editar Livro</h5>
+                  <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
+                    <div class="mb-3">
+                      <label for="titulo">Título:</label>
+                      <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
+                    </div>
+                    <div class="mb-3">
+                      <label for="autor">Autor:</label>
+                      <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="editora">Editora:</label>
+                      <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="ano">Ano de Publicação:</label>
+                      <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="genero">Gênero:</label>
+                      <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero">
+                    </div>
+                    <div class="mb-3">
+                      <label for="capa">Capa:</label>
+                      <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <input type="hidden" name="id-editar" value="<?php echo $livro['id'] ?>">
+                  <button type="submit" class="btn btn-primary" name="salvar">Salvar mudanças</button>
+                </div> 
+              </form>
+              </div>
+            </div>
+          </div>
         <?php endforeach; ?>
-        
       </tbody>
     </table>
     <?php }else { ?>
@@ -136,49 +217,6 @@ if (isset($_POST['excluir'])){
   <?php }?>
   </div>
 
-<!------------------ Modal --------------------------->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold fs-4" id="myModalLabel">Editar Livro</h5>
-        <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
-          <div class="mb-3">
-            <label for="titulo">Título:</label>
-            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" required>
-          </div>
-          <div class="mb-3">
-            <label for="autor">Autor:</label>
-            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" required>
-          </div>
-          <div class="mb-3">
-            <label for="editora">Editora:</label>
-            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" required>
-          </div>
-          <div class="mb-3">
-            <label for="ano">Ano de Publicação:</label>
-            <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" required>
-          </div>
-          <div class="mb-3">
-            <label for="genero">Gênero:</label>
-            <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero" required>
-          </div>
-          <div class="mb-3">
-            <label for="capa">Capa:</label>
-            <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar mudanças</button>
-      </div>
-    </div>
-  </div>
-</div>
 
  <!----------------------------------- footer ------------------------------------->
  <div class="container-fluid divi-card" style="height: 20rem;">

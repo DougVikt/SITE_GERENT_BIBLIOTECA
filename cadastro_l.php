@@ -23,6 +23,7 @@ session_start();
     $editora = $_POST['editora'];
     $ano = $_POST['ano'];
     $genero = $_POST['genero'];
+    
     $capa_nome = $_FILES['capa']['name'];
     $capa_tam = $_FILES['capa']['tmp_name'];
     $destino = 'banco/'.$capa_nome;
