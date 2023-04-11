@@ -72,9 +72,9 @@ if(isset($_POST['logout'])) {
           </div> 
           <?php endif; ?>
           <div class="sticky-sm-bottom row-2" style="text-align-last: center;" id="botoes-iniciais">
-            <a class="btn btn-secondary btn-outline-light rounded-4" href="login.php" role="button" id="login" >Login</a>
+            <a class="btn btn-primary btn-outline-light rounded-4" href="login.php" role="button" id="login" >Login</a>
             <div class="vr"></div>
-            <a class="btn btn-danger btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
+            <a class="btn btn-success btn-outline-light rounded-4 " href="cadastrar.php" role="button" id="cadastro">Cadastrar</a>
           </div><br>
           <ul class="navbar-nav text-lg-center flex-grow-1 pe-4">
             <li class="nav-item">
