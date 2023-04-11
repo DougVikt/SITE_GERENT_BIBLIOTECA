@@ -5,10 +5,10 @@ session_start();
 
 ob_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
   
 // Verifica se o formulário foi submetido
- 
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
   
     // Obtenha os valores enviados pelo formulário
     $email = $_POST['email'];
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
        echo "<script> alert('Usuário ou senha inválidos');</script>";
     }
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -70,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <form action="#" method="post">
           <div class="mb-3 mt-3 fw-bold">
             <label for="email">Email:</label>
-            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email" name="email" require>
+            <input type="email" class="form-control form-control-sm rounded-5" id="email" placeholder="Coloque o seu email" name="email" required>
           </div>
           <div class="mb-3 fw-bold">
             <label for="senha">Senha:</label>
-            <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha" require>
+            <input type="password" class="form-control form-control-sm rounded-5" id="senha" placeholder="Coloque sua senha " name="senha" required>
           </div>
           <br>
           <button type="submit" id="buttom" class="btn btn-success btn-outline-primary fs-5 rounded-4 text-light">Entrar</button>

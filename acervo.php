@@ -21,22 +21,37 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
    $funcionario = true;
 }
 
+// simplificando a busca 
+function execultar($sql , $pdo){
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $livros;
+}
+/*
+function quantidade(){
+  if ($titulo == $quant){
+    return $quant;
+  }
+}*/
+
+$sql_q = "SELECT titulo, COUNT(*) AS quantidade FROM livros GROUP BY titulo;";
+$quante = execultar($sql_q , $pdo);
+
 
 if (isset($_GET['q']) && !empty($_GET['q'])) {
   $q = $_GET['q'];
   $sql = "SELECT * FROM livros WHERE titulo LIKE '%$q%' OR autor LIKE '%$q%' OR editora LIKE '%$q%' OR ano LIKE '%$q%' OR genero LIKE '%$q%'";
 
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $livros = execultar($sql , $pdo);
+
 } else {
   // código para recuperar todos os livros da tabela
-  $sql = "SELECT livros.*, COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
-  FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro GROUP BY livros.id";
+  $sql = "SELECT  MIN(livros.id) AS id,titulo,autor,editora ,ano, genero ,capa , COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
+  FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro
+  GROUP BY livros.titulo, livros.autor, livros.ano;";
 
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $livros = execultar($sql , $pdo);
   $q = null;
 }
 if(isset($_POST['logout'])) {
