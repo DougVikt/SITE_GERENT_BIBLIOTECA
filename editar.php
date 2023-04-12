@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>editar</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
-</head>
 <?php
 include('conexao.php');
 session_start();
@@ -72,6 +61,18 @@ if (isset($_POST['salvar'])) {
   header('Location: editar.php');
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editar</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
+
+</head>
 <body>
      <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
@@ -156,7 +157,7 @@ if (isset($_POST['salvar'])) {
             <td><?php echo $livro['ano'];  ?></td>
             <td><?php echo $livro['genero'];  ?></td>
             <td> 
-              <button class="btn btn-warning border-dark  text-dark fs-6" type="button"  data-toggle="modal" data-target="#myModal-<?php echo $livro['id'] ?>" >
+              <button class="btn btn-success border-dark  text-light fs-6" type="button"  data-toggle="modal" data-target="#myModal-<?php echo $livro['id'] ?>" >
                 Editar 
                 </button>
               <form method="post" action="#">
@@ -174,29 +175,29 @@ if (isset($_POST['salvar'])) {
                   <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
+                  <form method="post" action="#" enctype="multipart/form-data" >
                     <div class="mb-3">
-                      <label for="titulo">Título:</label>
+                      <label for="titulo" class="fs-5 fw-bold">Título:</label>
                       <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
                     </div>
                     <div class="mb-3">
-                      <label for="autor">Autor:</label>
+                      <label for="autor" class="fs-5 fw-bold">Autor:</label>
                       <input type="text" class="form-control rounded-4 border-info shadow-sm" id="autor" name="autor" >
                     </div>
                     <div class="mb-3">
-                      <label for="editora">Editora:</label>
+                      <label for="editora" class="fs-5 fw-bold">Editora:</label>
                       <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" >
                     </div>
                     <div class="mb-3">
-                      <label for="ano">Ano de Publicação:</label>
+                      <label for="ano" class="fs-5 fw-bold">Ano de Publicação:</label>
                       <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" >
                     </div>
                     <div class="mb-3">
-                      <label for="genero">Gênero:</label>
+                      <label for="genero" class="fs-5 fw-bold">Gênero:</label>
                       <input type="text" class="form-control rounded-4 border-info shadow-sm" id="genero" name="genero">
                     </div>
                     <div class="mb-3">
-                      <label for="capa">Capa:</label>
+                      <label for="capa" class="fs-5 fw-bold">Capa:</label>
                       <input type="file" class="form-control rounded-4 border-info shadow-sm" id="capa" name="capa" title="Formato recomendado : jpg ou jpeg " >
                     </div>
                 </div>

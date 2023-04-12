@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
-
-</head>
-<body>
 <?php
 include 'conexao.php'; 
 
@@ -36,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   
   //obtendo o codigo de acordo com o nome , não estando na tabela emprestimo com o status pendente
-  $sql1 = "SELECT id FROM livros WHERE titulo=? and id not IN (SELECT codigo FROM emprestimo WHERE status='pendente')";
+  $sql1 = "SELECT id FROM livros WHERE titulo = :titulo and id not IN (SELECT codigo FROM emprestimo WHERE status='pendente')";
   $stmt2 = $pdo->prepare($sql1);
-  $stmt2->execute([$nome]);
+  $stmt2->execute([":titulo" => $titulo]);
   $codigo = $stmt2->fetchAll();
   // caso não tenha nem um codigo no banco
   if (!$codigo){
-    echo "<script> alert ('Livro Indisponivel !')</script>";
+    echo "<script> alert ('Livro Indisponivel ou não cadastrado !') ;window.location='emprestimo'.php</script>";
     $controle_erro = false;
   }
 
@@ -54,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':nome', $idUsuario);
     $stmt->bindValue(':titulo', $titulo);
-    $stmt->bindValue(':codigo', $codigo[0][0]);
+    $stmt->bindValue(':codigo', $codigo[0]['id']);
     $stmt->bindValue(':retirada', $retirada);
     $stmt->bindValue(':devolucao', $devolucao);
 
@@ -62,9 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //mensagem de sucesso e emcaminha para outra pagina , motivo de segurança
       echo "<script>alert('Empréstimo cadastrado com sucesso!'); window.location='historico_funcio.php';</script>";
 
-     
+      
     } else {
       echo "<script> alert('Erro ao cadastrar o empréstimo.');</script>";
+      header('Location: emprestimo.php');
     }
   }
 
@@ -75,7 +63,20 @@ if(isset($_POST['logout'])) {
   header('Location: index.php');
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
+
+</head>
+<body>
  
 <main class="flex-grow-1">
   <!-------------------------------------- inicio do navbar ------------------------------>
@@ -136,25 +137,26 @@ if(isset($_POST['logout'])) {
   </nav>
   <br>
   <br>
+
   <!--------------------------------- formulario de emprestimo ------------------------------------------->
   <div class="container-fluid mt-3 w-75 ">
     <h2 class="mb-3 text-center">Emprestimo</h2>
     <form method="post" action="#" enctype="multipart/form-data" class="fs-5 fw-bold">
       <div class="mb-3">
         <label for="titulo">Nome:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="nome" name="nome">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="nome" name="nome" required>
       </div>
       <div class="mb-3">
         <label for="nome-livro">Tìtulo do livro:</label>
-        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo">
+        <input type="text" class="form-control rounded-4 border-info shadow-sm" id="titulo" name="titulo" required>
       </div>
       <div class="mb-3">
         <label for="data-emprestimo">Data da Retirada:</label>
-        <input type="date" class="form-control rounded-4 border-info shadow-sm" id="retirada" name="retirada">
+        <input type="date" class="form-control rounded-4 border-info shadow-sm" id="retirada" name="retirada" required>
       </div>
       <div class="mb-3">
         <label for="data-entrega">Data de Devolução:</label>
-        <input type="date" class="form-control rounded-4 border-info shadow-sm" id="devolucao" name="devolucao">
+        <input type="date" class="form-control rounded-4 border-info shadow-sm" id="devolucao" name="devolucao" required>
       </div>
       <button type="submit" class="btn btn-info">Cadastrar</button>
     </form>

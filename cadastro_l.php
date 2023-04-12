@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
-</head>
-<body>
 <?php
 include 'conexao.php';
 
@@ -70,7 +58,19 @@ session_start();
     header('Location: index.php');
   }
 ?>
- 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
+
+</head>
+<body> 
 <main>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">

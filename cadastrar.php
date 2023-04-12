@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-  <title>Cadastro</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body class="bg-info  bg-opacity-25">
 <?php
 include 'conexao.php';
 // Inicie a sessão
 session_start();
+
+// simplificando a consulta 
+function executar($pdo, $sql , $nome , $email, $tele ,$cpf , $senha){
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':nome', $nome);
+  $stmt->bindParam(':email', $email);
+  $stmt->bindParam(':tele', $tele);
+  $stmt->bindParam(':cpf', $cpf);
+  $stmt->bindParam(':senha', $senha);
+  return $stmt;
+}
 
 // Verifique se o usuário já está logado e redirecione para a página principal se já estiver logado
 if (isset($_SESSION['usuario'])) {
     header('Location: index.php');
     exit;
 }
-
 
 if (isset($_POST['submit'])){
   
@@ -93,22 +92,12 @@ if (isset($_POST['submit'])){
         if ($codigo == $funcio) {
           // Insere os dados na tabela de funcionários
           $sql = "INSERT INTO funcionarios (nome, email, senha , telefone , cpf) VALUES (:nome, :email, :senha , :tele ,:cpf )";
-          $stmt = $pdo->prepare($sql);
-          $stmt->bindParam(':nome', $nome);
-          $stmt->bindParam(':email', $email);
-          $stmt->bindParam(':tele', $tele);
-          $stmt->bindParam(':cpf', $cpf);
-          $stmt->bindParam(':senha', $senhaCript);
+          $stmt = executar($pdo , $sql , $nome ,$email ,$tele , $cpf , $senhaCript);
+
         } elseif(empty($codigo)) {
           // Insere os dados na tabela de usuários
           $sql = "INSERT INTO usuarios (nome, email, senha , telefone , cpf) VALUES (:nome, :email, :senha , :tele ,:cpf )";
-          $stmt = $pdo->prepare($sql);
-          $stmt->bindParam(':nome', $nome);
-          $stmt->bindParam(':email', $email);
-          $stmt->bindParam(':tele', $tele);
-          $stmt->bindParam(':cpf', $cpf);
-          $stmt->bindParam(':senha', $senhaCript);
-        }
+          $stmt = executar($pdo , $sql , $nome ,$email ,$tele , $cpf , $senhaCript);
 
         if ($stmt !== null && $stmt->execute()) {
           // Se a inserção foi bem-sucedida, redirecione o usuário para a página principal
@@ -126,9 +115,21 @@ if (isset($_POST['submit'])){
       }
     }
 }
-   
+}  
 
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <title>Cadastro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-info  bg-opacity-25">
+
     <div class="bg-light rounded-4 container w-50 p-5 fs-5 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
         <div class="text-center w-75">
         <h2 class="text-center">Cadastre-se</h2><br>
@@ -163,10 +164,10 @@ if (isset($_POST['submit'])){
           </div>
          
           <br>
-          <button type="submit" name="submit" class="btn btn-warning btn-outline-primary fs-5 rounded-4">Cadastrar</button>
+          <button type="submit" name="submit" class="btn btn-success text-light btn-outline-primary fs-5 rounded-4">Cadastrar</button>
         </form>
           <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
-            <a href="index.php" class="btn btn-outline-primary">< Voltar</a>
+            <a href="index.php" class="btn btn-outline-primary rounded-5">Voltar</a>
           </div>
         </div>
     </div>

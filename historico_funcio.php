@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <title>Biblioteca Amanajé</title>
-    <link rel="icon" href="img/logo_aba.svg">
 
-</head>
-<body>
 <?php
 include 'conexao.php';
 session_start();
@@ -75,7 +63,19 @@ if(isset($_POST['logout'])) {
   header('Location: index.php');
 } 
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>Biblioteca Amanajé</title>
+    <link rel="icon" href="img/logo_aba.svg">
 
+</head>
+<body>
 <main  class="flex-grow-1">
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
@@ -163,7 +163,6 @@ if(isset($_POST['logout'])) {
         <tr class="table-primary">
           <th>Usuário</th>
           <th>Livro</th>
-          <th>Codigo</th>
           <th>Data de Retirada</th>
           <th>Data de Devolução</th>
           <th>Status</th>
@@ -199,7 +198,6 @@ if(isset($_POST['logout'])) {
           <tr <?php if ($emprestimo['status'] === 'entregue') {echo 'class="table-secondary"';} ?>>
             <td><?php echo $emprestimo['nome'];  ?></td>
             <td><?php echo $emprestimo['livro']; ?></td>
-            <td><?php echo $emprestimo['codigo_nome'];  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['retirada']));  ?></td>
             <td><?php echo date("d/m/Y",strtotime($emprestimo['devolucao']));  ?></td>
             <td><p class="fw-bold text-capitalize" id="text-status-<?php echo $emprestimo['id'] ?>"><?php echo $emprestimo['status'] ?></p> </td>
@@ -228,7 +226,7 @@ if(isset($_POST['logout'])) {
   </div>
  <!----------------------------------- footer ------------------------------------->
  <div class="container-fluid d-flex divi-card">
-  <footer class="row flex-fill py-5 my-sm-4 border-top">
+  <footer class="row flex-fill my-sm-4 border-top">
     <div class="col mb-3">
       <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>

@@ -13,7 +13,16 @@ try {
 }
 
 
-
+function tipo_usuario($session){
+    // verifica se e usuario ou funcionario
+if (isset($session['user_type']) && $session['user_type'] == 'funcionario') {
+    $funcionario = true;
+ }
+ else{ 
+    $funcionario = false;
+ }
+ return $funcionario;
+}
 
 
 

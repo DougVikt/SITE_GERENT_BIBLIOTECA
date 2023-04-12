@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <title>Biblioteca Amanajé</title>
-    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 
-</head>
-<body>
 <?php
 include 'conexao.php';
 
 session_start(); 
-$funcionario = false;
-// verifica se e usuario ou funcionario
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
-   $funcionario = true;
-}
 
 // simplificando a busca 
 function execultar($sql , $pdo){
@@ -28,6 +11,9 @@ function execultar($sql , $pdo){
   $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $livros;
 }
+
+$funcionario = $funcionario = tipo_usuario($_SESSION);
+
 /*
 function quantidade(){
   if ($titulo == $quant){
@@ -60,6 +46,19 @@ if(isset($_POST['logout'])) {
   header('Location: index.php');
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <title>Biblioteca Amanajé</title>
+    <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
+
+</head>
+<body>
 <main>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">

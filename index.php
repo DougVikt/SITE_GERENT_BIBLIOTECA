@@ -1,3 +1,39 @@
+
+<?php
+include 'conexao.php';
+session_start(); 
+
+// simplificando a consuta
+function executar($pdo , $sql){
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+}
+
+$funcionario = tipo_usuario($_SESSION);
+
+// pega as capas dos livros
+$sql = "SELECT  DISTINCT titulo, capa FROM livros ORDER BY id DESC LIMIT 3";
+$livros = executar($pdo , $sql);
+
+
+// pega os livros com o ano mais recente e que foi recem adicionado
+$sql2 = "SELECT DISTINCT titulo,capa FROM livros ORDER BY ano desc , id DESC limit 3 ";
+$livro_lan = executar($pdo , $sql2);
+
+// pega os livros com a maior avaliação
+$sql3 = "SELECT capa, livros.titulo, AVG(avaliacoes.avaliacao) as media FROM avaliacoes
+          JOIN livros ON avaliacoes.id_livro = livros.id GROUP BY livros.titulo ORDER BY media DESC LIMIT 3";
+
+$livro_ava = executar($pdo , $sql3);
+
+if(isset($_POST['logout'])) {
+  // Destrói a sessão
+  session_destroy();
+  header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,41 +48,6 @@
 <body>
  
 <main  class="flex-grow-1">
-<?php
-include 'conexao.php';
-session_start(); 
-
-$funcionario = false;
-// verifica se e usuario ou funcionario
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'funcionario') {
-   $funcionario = true;
-}
-// pega as capas dos livros
-$sql = "SELECT * FROM livros ORDER BY id DESC LIMIT 3";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-// pega os livros com o ano mais recente e que foi recem adicionado
-$sql2 = "SELECT * FROM livros ORDER BY ano desc , id DESC limit 3 ";
-$stmt2 = $pdo->prepare($sql2);
-$stmt2->execute();
-$livro_lan = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-// pega os livros com a maior avaliação
-$sql3 = "SELECT capa, livros.titulo, AVG(avaliacoes.avaliacao) as media FROM avaliacoes
-          JOIN livros ON avaliacoes.id_livro = livros.id GROUP BY livros.titulo ORDER BY media DESC LIMIT 3";
-$stmt3 = $pdo->prepare($sql3);
-$stmt3->execute();
-$livro_ava = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-
-if(isset($_POST['logout'])) {
-  // Destrói a sessão
-  session_destroy();
-  header('Location: index.php');
-}
-?>
   <!-------------------------------------- inicio do navbar ------------------------------>
   <nav class="navbar bg-info fixed-top " aria-label="Offcanvas navbar large">
     <div class="container-fluid">
