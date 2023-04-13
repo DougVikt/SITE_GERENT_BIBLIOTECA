@@ -1,3 +1,4 @@
+![bliblioteca amanaje](img/logo.png)
 # ====== BIBLIOTECA AMANAJÉ ====== 
   
   Site de gerenciamento de emprestimos de livros de uma biblioteca fisica , onde tem as funcionalidades do funcionario e do usuario .
