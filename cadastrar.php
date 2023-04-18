@@ -14,8 +14,14 @@ function executar($pdo, $sql , $nome , $email, $tele ,$cpf , $senha){
   return $stmt;
 }
 
+function verificaCpf($pdo , $sql , $cpf){
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':cpf', $cpf);
+  $stmt->execute();
+  return $stmt->fetch();
+}
 
-if (isset($_POST['submit'])){
+if  ($_SERVER["REQUEST_METHOD"] == "POST"){
   
   $stmt = null;
   // variavel do codigo dos funcionarios
@@ -56,19 +62,13 @@ if (isset($_POST['submit'])){
   }
 
   // verifica se o CPF já existe no banco
-  if ($codigo == $funcio){
-    $sql = "SELECT * FROM funcionarios WHERE cpf = :cpf";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':cpf', $cpf);
-    $stmt->execute();
-    $funcionario = $stmt->fetch();
+  if ($codigo === $funcio){
+    $sql = "SELECT cpf FROM funcionarios WHERE cpf = :cpf";
+    $funcionario = verificaCpf($pdo , $sql ,$cpf);
     $usuario = false ;
   }else{
-    $sql = "SELECT * FROM usuarios WHERE cpf = :cpf";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':cpf', $cpf);
-    $stmt->execute();
-    $usuario = $stmt->fetch();
+    $sql = "SELECT cpf FROM usuarios WHERE cpf = :cpf";
+    $usuario = verificaCpf($pdo , $sql , $cpf);
     $funcionario = false ;
   }
   
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])){
   if (empty($emailErro) && empty($senhaErro) && empty($codigoErro)) {
       // Verifica se o código inserido é igual ao código pré-definido para funcionários
 
-    if ($codigo == $funcio) {
+    if ($codigo === $funcio) {
       // Insere os dados na tabela de funcionários
       $sql = "INSERT INTO funcionarios (nome, email, senha , telefone , cpf) VALUES (:nome, :email, :senha , :tele ,:cpf )";
       $stmt = executar($pdo , $sql , $nome ,$email ,$tele , $cpf , $senhaCript);
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])){
       // Insere os dados na tabela de usuários
       $sql = "INSERT INTO usuarios (nome, email, senha , telefone , cpf) VALUES (:nome, :email, :senha , :tele ,:cpf )";
       $stmt = executar($pdo , $sql , $nome ,$email ,$tele , $cpf , $senhaCript);
-
+    }
     if ($stmt !== null && $stmt->execute()) {
       // Se a inserção foi bem-sucedida, redirecione o usuário para a página principal
       echo '<script>alert("Cadastro realizado com sucesso!"); window.location.href = "index.php";</script>';
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])){
     echo "<script>var errorsenha = '$senhaErro'; var erroremail = '$emailErro'; var errorcodigo = '$codigoErro'; </script>";
   }
 }
-}
+
 
 
 ?>
@@ -126,7 +126,7 @@ if (isset($_POST['submit'])){
     <div class="bg-light rounded-4 container w-50 p-5 fs-5 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
         <div class="text-center w-75">
         <h2 class="text-center">Cadastre-se</h2><br>
-        <form action="" method="post">
+        <form action="#" method="post">
           <div class="mb-1 fw-bold">
             <label for="text">Nome:</label>
             <input type="text" class="form-control form-control-sm rounded-5" id="nome" placeholder="Coloque o seu nome" name="nome" required>

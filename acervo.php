@@ -12,13 +12,11 @@ function execultar($sql , $pdo){
   return $livros;
 }
 
-$funcionario = $funcionario = tipo_usuario($_SESSION);
+$funcionario = tipo_usuario($_SESSION);
 
 /*
 function quantidade(){
-  if ($titulo == $quant){
-    return $quant;
-  }
+  
 }*/
 
 $sql_q = "SELECT titulo, COUNT(*) AS quantidade FROM livros GROUP BY titulo;";

@@ -22,14 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controle_erro = false;
   }
   
-  //obtendo o codigo de acordo com o nome , não estando na tabela emprestimo com o status pendente
+  //retorna o id caso tenha o livro e se não estando na tabela emprestimo com o status pendente
   $sql1 = "SELECT id FROM livros WHERE titulo = :titulo and id not IN (SELECT codigo FROM emprestimo WHERE status='pendente')";
   $stmt2 = $pdo->prepare($sql1);
   $stmt2->execute([":titulo" => $titulo]);
   $codigo = $stmt2->fetchAll();
-  // caso não tenha nem um codigo no banco
+  // caso não tenha nem um no banco
   if (!$codigo){
-    echo "<script> alert ('Livro Indisponivel ou não cadastrado !') ;window.location='emprestimo'.php</script>";
+    echo "<script> alert ('Livro não cadastrado ou não devolvido !') ;window.location='emprestimo.php'</script>";
     $controle_erro = false;
   }
 
