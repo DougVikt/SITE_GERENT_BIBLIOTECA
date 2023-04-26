@@ -75,7 +75,7 @@ if (isset($_POST['salvar'])) {
 </head>
 <body>
      <!-------------------------------------- inicio do navbar ------------------------------>
-  <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
+  <nav class="navbar bg-info sticky-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
@@ -130,9 +130,6 @@ if (isset($_POST['salvar'])) {
       </div>
     </div>
   </nav>
-  <br>
-  <br>
-
   <!----------------------------------- tabela ----------------------------------->
   <?php if (count($livros) > 0){ ?>
 <div class="container-fluid mt-5 pb-3"  >

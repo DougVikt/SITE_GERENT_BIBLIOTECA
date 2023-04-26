@@ -121,9 +121,9 @@ if  ($_SERVER["REQUEST_METHOD"] == "POST"){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body class="bg-info  bg-opacity-25">
+<body class="container-fuid bg-info bg-opacity-25 row justify-content-center ">
 
-    <div class="bg-light rounded-4 container w-50 p-5 fs-5 d-flex justify-content-center shadow  position-absolute top-50 start-50 translate-middle">
+    <div class="col-md-4 offset-auto mt-4 bg-light rounded-4 container-fluid fs-5 d-flex justify-content-center shadow  ">
         <div class="text-center w-75">
         <h2 class="text-center">Cadastre-se</h2><br>
         <form action="#" method="post">
@@ -159,9 +159,10 @@ if  ($_SERVER["REQUEST_METHOD"] == "POST"){
           <br>
           <button type="submit" name="submit" class="btn btn-success text-light btn-outline-primary fs-5 rounded-4">Cadastrar</button>
         </form>
-          <div class="position-absolute bottom-0 start-0 mb-2 mx-2" >
-            <a href="index.php" class="btn btn-outline-primary rounded-5">Voltar</a>
+        <div class="container-fluid mb-2 d-flex justify-content-start" >
+            <a href="index.php" class="btn btn-outline-primary rounded-5 ">Voltar</a>
           </div>
+        
         </div>
     </div>
   

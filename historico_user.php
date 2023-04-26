@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
 <body>
 <main>
   <!-------------------------------------- inicio do navbar ------------------------------>
-  <nav class="navbar bg-info fixed-top" aria-label="Offcanvas navbar large">
+  <nav class="navbar bg-info sticky-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
@@ -122,9 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
       </div>
     </div>
   </nav>
-<br>
   <!---------------------------------------- separador e busca ---------------------------------------------------->
-<header class="p-3 mx-auto mt-4 bg-info bg-gradient">
+<header class="p-3 mx-auto mb-4 bg-info bg-gradient">
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">

@@ -47,9 +47,9 @@ if(isset($_POST['logout'])) {
 </head>
 <body>
  
-<main  class="flex-grow-1">
+
   <!-------------------------------------- inicio do navbar ------------------------------>
-  <nav class="navbar bg-info fixed-top " aria-label="Offcanvas navbar large">
+  <nav class="navbar bg-info sticky-top ">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
@@ -115,6 +115,7 @@ if(isset($_POST['logout'])) {
   </nav>
   <br>
   <br>
+  <main  class="flex-grow-1">
   <!---------------------------------- logo central --------------------------------------->
 
   <div class="shadow-lg p-3 mb-4 bg-body rounded-circle border border-5  mx-auto w-50" style="margin-top: 20px;">

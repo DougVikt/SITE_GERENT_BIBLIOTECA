@@ -24,3 +24,7 @@
     padding:20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+.navbar {
+    max-width: 50px;
+  }
+  
