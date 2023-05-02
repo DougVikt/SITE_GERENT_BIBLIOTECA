@@ -9,7 +9,7 @@ session_start();
     $titulo = $_POST['titulo'];
     $autor = $_POST['autor'];
     $editora = $_POST['editora'];
-    $ano = $_POST['ano'];
+    $date = $_POST['data'];
     $genero = $_POST['genero'];
     
     $capa_nome = $_FILES['capa']['name'];
@@ -146,8 +146,8 @@ session_start();
         <input type="text" class="form-control rounded-4 border-info shadow-sm" id="editora" name="editora" required>
       </div>
       <div class="mb-3">
-        <label for="ano">Ano de Publicação:</label>
-        <input type="txt" class="form-control rounded-4 border-info shadow-sm" id="ano" name="ano"pattern="[0-9]{4}" maxlength="4" required>
+        <label for="ano">Data de Publicação:</label>
+        <input type="date" class="form-control rounded-4 border-info shadow-sm" id="ano" name="data" pattern="[0-9]{4}" required>
       </div>
       <div class="mb-3">
         <label for="genero">Gênero:</label>
@@ -164,27 +164,17 @@ session_start();
   
    
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card ">
- <footer class="row  py-5 my-sm-4 border-top">
-    <div class="col mb-3">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-      </a>
-    </div>
-
-    <div class=" mb-5 mx-4">
-      
+ <div class="container-fluid divi-card " style="height: 15rem;">
+  <footer class=" flex-fill my-sm-4 border-top p-4">
+    <div class="mb-5 mt-4">
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email : xxxxxx@xxxxx</font></font></a></li>
-
       </ul>
     </div>
-
-    
-
-  </footer>
- </div>
+    </footer>
+  </div>
 </main> 
   <script src="js/javascript.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>

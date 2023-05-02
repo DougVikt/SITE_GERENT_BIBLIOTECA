@@ -121,9 +121,9 @@ if  ($_SERVER["REQUEST_METHOD"] == "POST"){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body class="container-fuid bg-info bg-opacity-25 row justify-content-center ">
+<body class="container-fuid bg-info bg-opacity-25 row-8 justify-content-center ">
 
-    <div class="col-md-4 offset-auto mt-4 bg-light rounded-4 container-fluid fs-5 d-flex justify-content-center shadow  ">
+    <div class="col-md-4 col-sm-8 offset-auto mt-4 bg-light rounded-4 container-fluid fs-5 d-flex justify-content-center shadow  ">
         <div class="text-center w-75">
         <h2 class="text-center">Cadastre-se</h2><br>
         <form action="#" method="post">
@@ -137,11 +137,11 @@ if  ($_SERVER["REQUEST_METHOD"] == "POST"){
           </div>
           <div class="mb-1 fw-bold">
             <label for="cpf">CPF:</label>
-            <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="Coloque seu CPF" name="cpf" pattern="[0-9]{11}" maxlength="11" required title="Coloque os 11 numeros do seu CPF ">       
+            <input type="text" class="form-control form-control-sm rounded-5" id="cpf" placeholder="123.456.789-00" name="cpf" pattern="[0-9]{11}" maxlength="11" required title="Coloque os 11 numeros do seu CPF " onkeyup="formatarEntrada(this , 'cpf')">       
           </div>
           <div class="mb-1 fw-bold">
             <label for="tel">Telefone:</label>
-            <input type="tel" class="form-control form-control-sm rounded-5" id="tele" placeholder="Coloque seu Telefone" name="tele" pattern="[0-9]{11}" maxlength="11" required>
+            <input type="tel" class="form-control form-control-sm rounded-5" id="tele" placeholder="(12) 9 3456-7890" name="tele" pattern="[0-9]" maxlength="11" required title="Coloque seu telefone de uso " onkeyup="formatarEntrada(this , 'tel')">
           </div>
           <div class="mb-1 fw-bold">
             <label for="pwd">Senha:</label>
@@ -153,14 +153,14 @@ if  ($_SERVER["REQUEST_METHOD"] == "POST"){
           </div>
           <div class="mb-1 fs-6 fst-italic">
             <label for="codigo">Código:</label>
-            <input type="text" class="form-control form-control-sm rounded-5" id="codg" placeholder="Campo para funcionarios" name="codigo">
+            <input type="password" class="form-control form-control-sm rounded-5" id="codg" placeholder="Campo para funcionarios" name="codigo">
           </div>
          
           <br>
           <button type="submit" name="submit" class="btn btn-success text-light btn-outline-primary fs-5 rounded-4">Cadastrar</button>
         </form>
         <div class="container-fluid mb-2 d-flex justify-content-start" >
-            <a href="index.php" class="btn btn-outline-primary rounded-5 ">Voltar</a>
+            <a href="index.php" class="btn btn-outline-primary rounded-5 opacity-50 ">Voltar</a>
           </div>
         
         </div>

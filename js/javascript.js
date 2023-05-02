@@ -69,6 +69,33 @@ function Confirmando(button , status) {
 }
 
 
+function formatarEntrada(input,tipo ) {
+
+  // Remove todos os caracteres que não sejam números do valor do campo
+  let numero = input.value.replace(/\D/g, '');
+  // caso seja telefone 
+  if (tipo === 'tel' ){
+    // Formata o número com parênteses e hífen caso tenha 11 dígitos
+    if (numero.length === 11) {
+      input.value = '(' + numero.substring(0, 2) + ') ' + numero.substring(2,3) + ' ' + numero.substring(3, 7) + '-' + numero.substring(7);
+    } else {
+      input.value = numero;
+    }
+  }
+  // caso seja cpf 
+  else if (tipo === 'cpf'){
+    if (numero.length === 11 ){
+      input.value = numero.substring(0,3) + '.' + numero.substring(3,6) + '.' + numero.substring(6,9) + '-' + numero.substring(9)  
+    }
+    else{
+      input.value = numero;
+    }
+  }
+
+
+}
+
+
 /*
 function Confirmando(status){
 

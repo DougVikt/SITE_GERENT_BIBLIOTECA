@@ -156,6 +156,7 @@ if(isset($_POST['logout'])) {
 </header>
 
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
+<div class="table-responsive">
 <?php if (count($emprestimos) > 0){ ?>
 <div class="container-fluid mx-0 text-center" style="height: 30rem;">
     <table class="table table-hover text-center">
@@ -224,27 +225,17 @@ if(isset($_POST['logout'])) {
       </div>
      <?php }?>
   </div>
+</div>
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid d-flex divi-card">
-  <footer class="row flex-fill my-sm-4 border-top">
-    <div class="col mb-3">
-      <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
-      </a>
-    </div>
-
-    <div class=" mb-5 mx-0">
-      
+ <div class="container-fluid divi-card " style="height: 15rem;">
+  <footer class=" flex-fill my-sm-4 border-top p-4">
+    <div class="mb-5 mt-4">
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email : xxxxxx@xxxxx</font></font></a></li>
-
       </ul>
     </div>
-
-    
-
     </footer>
   </div>
 </main> 

@@ -19,7 +19,7 @@ $livros = executar($pdo , $sql);
 
 
 // pega os livros com o ano mais recente e que foi recem adicionado
-$sql2 = "SELECT DISTINCT titulo,capa FROM livros ORDER BY ano desc , id DESC limit 3 ";
+$sql2 = "SELECT DISTINCT titulo,capa FROM livros ORDER BY data desc , id DESC limit 3 ";
 $livro_lan = executar($pdo , $sql2);
 
 // pega os livros com a maior avaliação
@@ -45,11 +45,9 @@ if(isset($_POST['logout'])) {
     <title>Biblioteca Amanajé</title>
     <link rel="shortcut icon" href="img/logo_aba.svg" type="image/x-icon">
 </head>
-<body>
- 
-
+<body class="mx-auto">
   <!-------------------------------------- inicio do navbar ------------------------------>
-  <nav class="navbar bg-info sticky-top ">
+  <nav class="navbar bg-info " >
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4 " href="index.php">
         Biblioteca Amanajé
@@ -57,6 +55,7 @@ if(isset($_POST['logout'])) {
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!--------------------- menu lateral ---------------------------------->
       <div class="offcanvas offcanvas-end text-bg-info" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbar2Label fs-2">MENU</h5>
@@ -115,7 +114,7 @@ if(isset($_POST['logout'])) {
   </nav>
   <br>
   <br>
-  <main  class="flex-grow-1">
+  <main>
   <!---------------------------------- logo central --------------------------------------->
 
   <div class="shadow-lg p-3 mb-4 bg-body rounded-circle border border-5  mx-auto w-50" style="margin-top: 20px;">
@@ -125,171 +124,168 @@ if(isset($_POST['logout'])) {
   </div>
 
   <!-------------------------------- cards carrossel ------------------------------------------------->
-<div class="containeri-fluid" >
-  <div id="meuCarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="card-deck">  
-          <div class="container-fluid mt-3 shadow divi-card">
-            <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
-          </div>
-          <div class="row row-cols-1 row-cols-md-4">
-            <div class="mx-auto ">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5" >
-                  <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                  <div class="card-body">
-                    <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['0']['titulo'] ?></p>
+  <div class="containeri-fluid" >
+    <div id="meuCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card-deck">  
+            <div class="container-fluid mt-3 shadow divi-card">
+              <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
+            </div>
+            <div class="row row-cols-1 row-cols-md-4">
+              <div class="mx-auto ">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5" >
+                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                    <div class="card-body">
+                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['0']['titulo'] ?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto" >
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['1']['titulo'] ?></p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['2']['titulo'] ?></p>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="mx-auto" >
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['1']['titulo'] ?></p>
-                    </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-deck">
+            <div class="container-fluid mt-3 shadow  divi-card">
+              <h3 class="card-2 fw-bold fs-2"> LANÇAMENTOS </h3>
+            </div>
+            <div class="row row-cols-1 row-cols-md-4 ">
+            <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['0']['titulo'] ?></p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['1']['titulo'] ?></p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livros['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livros['2']['titulo'] ?></p>
-                    </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-deck">
+            <div class="container-fluid mt-3 shadow divi-card">
+              <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
+            </div>
+            <div class="row row-cols-1 row-cols-md-4 ">
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                    <?php if (!empty($livro_ava['0'])){ ?>
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['0']['titulo'] ?></p>
+                      </div>
+                      <?php } else { ?>
+                        <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                      <?php } ?>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                  <?php if (!empty($livro_ava['1'])){ ?>
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['1']['titulo'] ?></p>
+                      </div>
+                      <?php } else { ?>
+                        <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                      <?php } ?>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto">
+                <div class="col h-100">
+                  <div class="card shadow h-100 rounded-5">
+                  <?php if (!empty($livro_ava['2'])){ ?>
+                      <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" />
+                      <div class="card-body">
+                        <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['2']['titulo'] ?></p>
+                      </div>
+                      <?php } else { ?>
+                        <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
+                      <?php } ?>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="carousel-item">
-        <div class="card-deck">
-          <div class="container-fluid mt-3 shadow  divi-card">
-            <h3 class="card-2 fw-bold fs-2"> LANÇAMENTOS </h3>
-          </div>
-          <div class="row row-cols-1 row-cols-md-4 ">
-          <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['0']['titulo'] ?></p>
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['1']['titulo'] ?></p>
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_lan['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_lan['2']['titulo'] ?></p>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="card-deck">
-          <div class="container-fluid mt-3 shadow divi-card">
-            <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
-          </div>
-          <div class="row row-cols-1 row-cols-md-4 ">
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                   <?php if (!empty($livro_ava['0'])){ ?>
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['0']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['0']['titulo'] ?></p>
-                    </div>
-                    <?php } else { ?>
-                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
-                    <?php } ?>
-                </div>
-              </div>
-            </div>
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                <?php if (!empty($livro_ava['1'])){ ?>
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['1']['capa'] ?>" aria-label="Espaço reservado: Miniatura" ></img>
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['1']['titulo'] ?></p>
-                    </div>
-                    <?php } else { ?>
-                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
-                    <?php } ?>
-                </div>
-              </div>
-            </div>
-            <div class="mx-auto">
-              <div class="col h-100">
-                <div class="card shadow h-100 rounded-5">
-                <?php if (!empty($livro_ava['2'])){ ?>
-                    <img class="img-fluid bd-placeholder-img card-img-top border border-4 border-light rounded-5" width="100%" height="100%" src="<?php echo $livro_ava['2']['capa'] ?>" aria-label="Espaço reservado: Miniatura" />
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bold text-capitalize text-center" style="vertical-align: inherit;"> <?php echo $livro_ava['2']['titulo'] ?></p>
-                    </div>
-                    <?php } else { ?>
-                      <p class="top-50 text-center w-75 fw-bold fs-3">Sem livro avaliado no momento</p>
-                    <?php } ?>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#meuCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
-    <a class="carousel-control-next" href="#meuCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
-  </div>
-</div>
-</main> 
- <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card" style="height: 20rem;">
-  <footer class="row py-5 my-sm-4 border-top ">
-    <div class="col mb-3">
-      <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-       <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
+      <a class="carousel-control-prev" href="#meuCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </a>
+      <a class="carousel-control-next" href="#meuCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
       </a>
     </div>
+  </div>
+  </main> 
+  <!----------------------------------- footer ------------------------------------->
+  <div class="container-fluid divi-card" style="height: 20rem;">
+    <footer class="row py-5 my-sm-4 border-top ">
+      <div class="col mb-3">
+        <a href="#" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+        <p class="text-center fs-4 mb-3 fw-bold w-100">+ 700 livros no nosso acervo</p>
+        </a>
+      </div>
+      <div class=" mb-5 mx-auto">
+        <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email : xxxxxx@xxxxx</font></font></a></li>
 
-    <div class=" mb-5 mx-4">
-      
-      <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email : xxxxxx@xxxxx</font></font></a></li>
-
-      </ul>
-      
-    </div>
-  </footer>
-</div>
+        </ul>
+      </div>
+    </footer>
+  </div>
 
   
  <!---------------------------------------------- scripts -------------------------------------------------->
@@ -308,8 +304,7 @@ if(isset($_POST['logout'])) {
   )
    
   </script>
- 
 </body>
-
+</html>
 
 

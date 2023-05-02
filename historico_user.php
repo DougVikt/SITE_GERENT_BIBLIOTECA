@@ -16,16 +16,17 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['user_id' => $usuario_id]);
 $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_GET['q']) && !empty($_GET['q'])) {
-  $q = $_GET['q'];
+if (isset($_GET['p']) && !empty($_GET['p'])) {
+  $p = $_GET['p'];
   $sql = "SELECT id ,livro , retirada , devolucao FROM emprestimo
-  WHERE ( livro LIKE :q OR retirada LIKE '%".date_format(date_create($q),'Y-m-d')."%' OR devolucao LIKE '%" . date_format(date_create($q), 'Y-m-d') . "%' )
+  WHERE ( livro LIKE :q OR retirada LIKE '%".date_format(date_create($p),'Y-m-d')."%' OR devolucao LIKE '%" . date_format(date_create($p), 'Y-m-d') . "%' )
   AND usuario = :id";
   $stmt = $pdo->prepare($sql);
-  $stmt->execute(['q' => $q, 'codigo' => $_SESSION['codigo']]);
+  $stmt->execute(['q' => $p, 'codigo' => $_SESSION['codigo']]);
   $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } else {
+  $p = '';
   // código para recuperar todos os livros da tabela
   $sql = "SELECT * FROM emprestimo WHERE usuario = :user_id ";
 
@@ -123,25 +124,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
     </div>
   </nav>
   <!---------------------------------------- separador e busca ---------------------------------------------------->
-<header class="p-3 mx-auto mb-4 bg-info bg-gradient">
+  <header class="p-3 bg-info bg-gradient navbar-expand-lg w-100">
     <div class="container-fluid">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start">
         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
         </a>
 
-        <div class="col-1 col-lg-auto col-sm-6 mb-3 mb-lg-0 ms-auto me-lg-3">
-            <form class="d-flex" role="search">
-            <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Procuro o livro..." aria-label="Procurar">
-            </form>
+        <div class="col-md-4 col-lg-3 col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
+          <form class="d-flex" role="search" method="get" action="#">
+            <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $p; ?>">
+          </form>
         </div>
-        
-
-</div>
+        </div>
+    </div>
 </header>
 <!---------------------------------------------- tabela de usuarios ----------------------------------->
-<?php if (count($historicos) > 0){ ?>
 <div class="table-responsive">
+<?php if (count($historicos) > 0){ ?>
+  <div class="container-fluid mx-0 text-center" style="height: 30rem;">
   <table class="table table-striped table-sm text-center">
     <thead>
       <tr>
@@ -171,7 +172,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
             ?> 
             <script>
               function ExibirEstrelas(avaliado , idlivro){
-                      
                       var estrelaId
                       for (var i = 1; i <= 5; i++) {
                         estrelaId = "s" + i + idlivro;
@@ -183,60 +183,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
                       }
                     }
             </script>
-            
-            <form method="post" action="">
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>"></a>
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>' )">
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>"></a>
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>' )">
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>"></a>
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(4, '<?php echo $historico['codigo']; ?>')">
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's4' . $historico['codigo']; ?>"></a>
-              <a class="p-0" href="javascript:void(0)" onclick="Avaliar(5, '<?php echo $historico['codigo']; ?>')">
-                <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's5' . $historico['codigo']; ?>"></a>
-              <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
-              <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
-              <button type="submit" name="submit" id="bt-submit" class= " ms-3 btn btn-outline-success fs-6">Avaliar</button>
-            </form>
+            <div class="container-fluid">
+              <form method="post" action="">
+                <a class="p-0" href="javascript:void(0)" onclick="Avaliar(1, '<?php echo $historico['codigo']; ?>' )">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's1' . $historico['codigo']; ?>"></a>
+                <a class="p-0" href="javascript:void(0)" onclick="Avaliar(2, '<?php echo $historico['codigo']; ?>' )">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's2' . $historico['codigo']; ?>"></a>
+                <a class="p-0" href="javascript:void(0)" onclick="Avaliar(3, '<?php echo $historico['codigo']; ?>' )">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's3' . $historico['codigo']; ?>"></a>
+                <a class="p-0" href="javascript:void(0)" onclick="Avaliar(4, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's4' . $historico['codigo']; ?>"></a>
+                <a class="p-0" href="javascript:void(0)" onclick="Avaliar(5, '<?php echo $historico['codigo']; ?>')">
+                  <img width="20rem" height="20rem" src="img/star-0.png" id="<?php echo 's5' . $historico['codigo']; ?>"></a>
+                <input type="hidden" name="idlivro" value="<?php echo $historico['codigo']; ?>">
+                <input type="hidden" name="avaliacao" id="avaliacao<?php echo $historico['codigo']; ?>" value="">
+                <button type="submit" name="submit" id="bt-submit" class= " ms-3 btn btn-outline-success fs-6">Avaliar</button>
+              </form>
+            </div>
            <script>
               ExibirEstrelas(
                 <?php echo $avaliacao[0]['avaliacao'] ?>,
                 '<?php echo $historico['codigo'] ?>'
               )
             </script>
-              
         </tr>
       <?php } ?>
-
     </tbody>
   </table>
   <?php } else { ?>
     <p class="text-capitalize text-lg-center fs-4">Você esta sem historico no momento</p> 
   <?php }?>
 </div> 
+</div>
  <!----------------------------------- footer ------------------------------------->
- <div class="container-fluid divi-card mt-3 fixed-bottom ">
- <footer class="row  py-5 my-sm-4 border-top">
-    <div class="col mb-3">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-      </a>
-    </div>
-
-    <div class=" mb-5 mx-4">
-      
+ <div class="container-fluid divi-card " style="height: 15rem;">
+  <footer class=" flex-fill my-sm-4 border-top p-4">
+    <div class="mb-5 mt-4">
       <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sobre</font></font></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fone : 0000000000</font></font></a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email : xxxxxx@xxxxx</font></font></a></li>
-
       </ul>
     </div>
-
-    
-
-  </footer>
-   </div>
+    </footer>
+  </div>
 </main> 
     
     <script src="js/javascript.js"></script>

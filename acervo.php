@@ -19,24 +19,28 @@ function quantidade(){
   
 }*/
 
-$sql_q = "SELECT titulo, COUNT(*) AS quantidade FROM livros GROUP BY titulo;";
+$sql_q = "SELECT livros.titulo, COUNT(*) AS quantidade FROM livros 
+LEFT JOIN emprestimo ON livros.id = emprestimo.codigo 
+WHERE emprestimo.status = 'entregue' OR emprestimo.status IS NULL 
+GROUP BY livros.titulo;
+";
 $quante = execultar($sql_q , $pdo);
 
 
-if (isset($_GET['q']) && !empty($_GET['q'])) {
-  $q = $_GET['q'];
-  $sql = "SELECT * FROM livros WHERE titulo LIKE '%$q%' OR autor LIKE '%$q%' OR editora LIKE '%$q%' OR ano LIKE '%$q%' OR genero LIKE '%$q%'";
+if (isset($_GET['p']) && !empty($_GET['p'])) {
+  $p = $_GET['p'];
+  $sql = "SELECT * FROM livros WHERE titulo LIKE '%$p%' OR autor LIKE '%$p%' OR editora LIKE '%$p%' OR YEAR(data) LIKE '%$p%' OR genero LIKE '%$p%'";
 
   $livros = execultar($sql , $pdo);
 
 } else {
   // código para recuperar todos os livros da tabela
-  $sql = "SELECT  MIN(livros.id) AS id,titulo,autor,editora ,ano, genero ,capa , COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
+  $sql = "SELECT  MIN(livros.id) AS id,titulo,autor,editora ,data, genero ,capa , COALESCE(AVG(avaliacoes.avaliacao), 0) AS media
   FROM livros LEFT JOIN avaliacoes ON livros.id = avaliacoes.id_livro
-  GROUP BY livros.titulo, livros.autor, livros.ano;";
+  GROUP BY livros.titulo, livros.autor, livros.data;";
 
   $livros = execultar($sql , $pdo);
-  $q = null;
+  $p = null;
 }
 if(isset($_POST['logout'])) {
   // Destrói a sessão
@@ -124,21 +128,21 @@ if(isset($_POST['logout'])) {
     </div>
   </nav>
   <!---------------------------------------- separador e busca ---------------------------------------------------->
-  <header class="p-3 mx-auto bg-info bg-gradient">
+  <header class="p-3 bg-info bg-gradient navbar-expand-lg w-100">
     <div class="container-fluid">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
+            <img class="img-fluid img-thumbnail rounded-circle" width="100" height="20" src="img/logo.png" alt="logo biblioteca Amanajé">
         </a>
 
-        <div class="col-1 col-lg-auto col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
-          <form class="d-flex" role="search"  method="GET">
-            <input type="search" name="q" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $q ?>">
+        <div class="col-md-4 col-lg-3 col-sm-6  mb-3 mb-lg-0 ms-auto me-lg-3">
+          <form class="d-flex" role="search" method="get" action="#">
+            <input type="search" name="p" class="form-control form-control-dark text-bg-light" placeholder="Estou procurando..." aria-label="Procurar" value="<?php echo $p; ?>">
           </form>
         </div>
-      </div>
+        </div>
     </div>
-  </header>
+</header>
   <!----------------------------------------- acervo ----------------------------------------------------------------->
   <div class="container-fluid h-100 mt-3">
     <div class="row">
@@ -166,10 +170,28 @@ if(isset($_POST['logout'])) {
                   <li class="mx-3 card-text fw-semibold">Genero: </li>
                     <p class="mx-4 fst-italic"><?php echo $livro['genero']; ?></p>
                   <li class="mx-3 card-text fw-semibold">Ano:</li>
-                    <p class="mx-4 fst-italic"> <?php echo $livro['ano'];?></p>
+                    <p class="mx-4 fst-italic"> <?php echo date("d/m/Y",strtotime($livro['data']));?></p>
                   <li class="mx-3 card-text fw-semibold">Editora: </li> 
                     <p class="mx-4 fst-italic"><?php echo $livro['editora']; ?></p>
+                  <li class="mx-3 card-text fw-semibold">Disponiveis: </li> 
+                    <p class="mx-4 fst-italic">
+                      <?php  
+                      $tem = null;
+                      foreach ($quante as $livro_quantidade) {
+                        if ($livro_quantidade['titulo'] === $livro['titulo']) {
+                          echo $livro_quantidade['quantidade'];
+                          $tem = true;
+                          break;
+                          
+                        }
+                      }if (empty($tem)){
+                        echo 'Nenhum Disponivel';
+                      }
+                      
+                      ?>
+                    </p>
                 </ul> 
+
                 <script>
                   
                     // aparece as estrelas no acervo
