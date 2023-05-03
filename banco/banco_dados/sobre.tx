@@ -21,7 +21,7 @@ banco - biblioteca {
                                   titulo
                                   autor
                                   editora
-                                  ano
+                                  data
                                   genero
                                   capa
                                   codigo  - unique
