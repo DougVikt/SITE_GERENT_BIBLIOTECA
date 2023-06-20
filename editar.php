@@ -61,6 +61,13 @@ if (isset($_POST['salvar'])) {
   ]);
   header('Location: editar.php');
 }
+
+if(isset($_POST['logout'])) {
+  // Destrói a sessão
+  session_destroy();
+  header('Location: index.php');
+} 
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

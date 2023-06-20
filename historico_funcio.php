@@ -20,10 +20,10 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
     $data_final = '';
   }
 
-  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome FROM emprestimo 
+  $sql = "SELECT emprestimo.*, usuarios.nome , livros.titulo as livro FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id 
-  WHERE nome LIKE '$p' OR livro LIKE '$p' OR status LIKE '$p' 
+  WHERE nome LIKE '$p' OR livros.titulo LIKE '$p' OR status LIKE '$p' 
   OR retirada LIKE '$data_final' OR devolucao LIKE '$data_final'";
 
   $stmt = $pdo->prepare($sql);
@@ -33,7 +33,7 @@ if (isset($_GET['p']) && !empty($_GET['p'])) {
   
 } elseif(empty($_GET['p'])) {
    // consulta no banco de dados caso nada colsultado
-  $sql = "SELECT emprestimo.*, usuarios.nome , livros.codigo as codigo_nome
+  $sql = "SELECT emprestimo.*, usuarios.nome , livros.titulo as livro
   FROM emprestimo 
   INNER JOIN usuarios ON emprestimo.usuario = usuarios.id 
   INNER JOIN livros ON emprestimo.codigo = livros.id
@@ -221,7 +221,7 @@ if(isset($_POST['logout'])) {
     </table>
     <?php }else { ?>
       <div class="container-fluid"style="height: 20rem;">
-        <p class="text-capitalize text-lg-center fs-3 " >Sem historico no momento</p> 
+        <p class="text-capitalize text-lg-center fs-3 " >Desculpe, não encontramos nenhum resultado correspondente à sua pesquisa. Por favor, tente novamente com termos diferentes.</p> 
       </div>
      <?php }?>
   </div>

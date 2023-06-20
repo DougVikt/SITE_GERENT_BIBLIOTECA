@@ -6,33 +6,49 @@ session_start();
 
 // Obtém o ID do usuário da sessão
 $usuario_id = $_SESSION['id'];
-
-
-// Faz a consulta SQL para obter o histórico do usuário
-// consulta no banco de dados caso nada consultado
-$sql = "SELECT * FROM emprestimo WHERE usuario = :user_id ";
-
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['user_id' => $usuario_id]);
-$historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$data_hoje = date('Y-m-d');
+$dataPreAtra = date('Y-m-d' , strtotime('-3 days'));
 
 if (isset($_GET['p']) && !empty($_GET['p'])) {
+
   $p = $_GET['p'];
-  $sql = "SELECT id ,livro , retirada , devolucao FROM emprestimo
-  WHERE ( livro LIKE :q OR retirada LIKE '%".date_format(date_create($p),'Y-m-d')."%' OR devolucao LIKE '%" . date_format(date_create($p), 'Y-m-d') . "%' )
-  AND usuario = :id";
+
+  if (preg_match('/^\d{2}\/\d{2}$/', $p)) {
+    $data_parts = explode('/', $p);
+    $data_inicial = date_create_from_format('d/m', $p);
+    if ($data_inicial !== false) {
+      $data_inicial = $data_inicial->format('Y-m-d');
+      $data_final = str_replace("/","-", $data_inicial);
+      
+    }
+  } else {
+    $data_final = '';
+  }
+
+  $sql = "SELECT emprestimo.* , livros.titulo FROM emprestimo
+  INNER JOIN livros on emprestimo.codigo = livros.id
+  WHERE ( livros.titulo LIKE '$p' OR retirada LIKE '$data_final' OR devolucao LIKE '$data_final' )
+  AND usuario = '$usuario_id'";
   $stmt = $pdo->prepare($sql);
-  $stmt->execute(['q' => $p, 'codigo' => $_SESSION['codigo']]);
+  $stmt->execute();
   $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  if (!$historicos){
+    $emprest = true;
+  }else{
+    $emprest = false;
+  }
 
 } else {
   $p = '';
   // código para recuperar todos os livros da tabela
-  $sql = "SELECT * FROM emprestimo WHERE usuario = :user_id ";
+  $sql = "SELECT emprestimo.* , livros.titulo FROM emprestimo 
+  INNER JOIN livros ON emprestimo.codigo = livros.id
+  WHERE emprestimo.usuario = :user_id " ;
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute(['user_id' => $usuario_id]);
-  $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $historicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 if(isset($_POST['logout'])) {
   // Destrói a sessão
@@ -42,7 +58,7 @@ if(isset($_POST['logout'])) {
 
 
 
-
+// entrada para a avaliação
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
 
   $avaliacao = $_POST['avaliacao'];
@@ -155,9 +171,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
     <tbody>
       <?php foreach ($historicos as $historico) { ?>
       <tr>
-          <td><?php echo $historico['livro']; ?></td>
+          <td><?php echo $historico['titulo']; ?></td>
          <td><?php echo date('d/m/Y', strtotime($historico['retirada'])); ?></td>
-         <td><?php echo date('d/m/Y', strtotime($historico['devolucao'])); ?></td>
+         <td><?php 
+            if ($data_hoje > $historico['devolucao']){
+              echo '<span style="color: red;">'.date('d/m/Y', strtotime($historico['devolucao'])).'-ATRASADA </span>';
+            }
+            else if ($dataPreAtra >= $historico['devolucao']){
+              echo '<span style="color: yellow;">'.date('d/m/Y', strtotime($historico['devolucao'])).'-PERTO DO VENCIMENTO </span>';
+            }
+            else {
+               echo '<span style="color: green;">'.date('d/m/Y', strtotime($historico['devolucao'])).'</span>'; 
+            }
+          ?></td>
+        
           <td>
             <?php 
               $livro = $historico['codigo'];
@@ -210,9 +237,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
       <?php } ?>
     </tbody>
   </table>
-  <?php } else { ?>
-    <p class="text-capitalize text-lg-center fs-4">Você esta sem historico no momento</p> 
-  <?php }?>
+    <div>
+      <?php } else if ($emprest){ ?>
+        <p class="text-capitalize text-lg-center fs-4"style="height: 30rem;">Desculpe, não encontramos nenhum resultado correspondente à sua pesquisa. Por favor, tente novamente com termos diferentes.</p> 
+      <?php } else {?>
+        <p class="text-capitalize text-lg-center fs-4"style="height: 30rem;">Sem historicos no momento !</p> 
+      <?php } ?>
+    </div>
 </div> 
 </div>
  <!----------------------------------- footer ------------------------------------->
