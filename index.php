@@ -129,7 +129,7 @@ if(isset($_POST['logout'])) {
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="card-deck">  
-            <div class="container-fluid mt-3 shadow divi-card">
+            <div class="container-fluid mt-3 shadow divi-card"  style='height: 5rem;'>
               <h3 class="card-2 fw-bold fs-2"> NOVAS AQUISIÇÕES</h3>
             </div>
             <div class="row row-cols-1 row-cols-md-4">
@@ -168,7 +168,7 @@ if(isset($_POST['logout'])) {
         </div>
         <div class="carousel-item">
           <div class="card-deck">
-            <div class="container-fluid mt-3 shadow  divi-card">
+            <div class="container-fluid mt-3 shadow  divi-card" style='height: 5rem;'>
               <h3 class="card-2 fw-bold fs-2"> LANÇAMENTOS </h3>
             </div>
             <div class="row row-cols-1 row-cols-md-4 ">
@@ -207,7 +207,7 @@ if(isset($_POST['logout'])) {
         </div>
         <div class="carousel-item">
           <div class="card-deck">
-            <div class="container-fluid mt-3 shadow divi-card">
+            <div class="container-fluid mt-3 shadow divi-card" style='height: 5rem;'>
               <h3 class="card-2 fw-bold fs-2"> MELHOR AVALIADOS </h3>
             </div>
             <div class="row row-cols-1 row-cols-md-4 ">
