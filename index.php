@@ -18,6 +18,7 @@ $sql = "SELECT  DISTINCT titulo, capa FROM livros ORDER BY id DESC LIMIT 3";
 $livros = executar($pdo , $sql);
 
 
+
 // pega os livros com o ano mais recente e que foi recem adicionado
 $sql2 = "SELECT DISTINCT titulo,capa FROM livros ORDER BY data desc , id DESC limit 3 ";
 $livro_lan = executar($pdo , $sql2);

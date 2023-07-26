@@ -94,7 +94,9 @@ function formatarEntrada(input,tipo ) {
 
 
 }
-
+function redirecionar() {
+  window.location.href = 'index.php';
+}
 
 /*
 function Confirmando(status){
